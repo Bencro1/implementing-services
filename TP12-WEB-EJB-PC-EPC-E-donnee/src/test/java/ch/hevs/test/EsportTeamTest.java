@@ -1,8 +1,10 @@
-package ch.hevs.businessobject;
+package ch.hevs.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import ch.hevs.Entitys.EsportTeam;
 
 public class EsportTeamTest {
 

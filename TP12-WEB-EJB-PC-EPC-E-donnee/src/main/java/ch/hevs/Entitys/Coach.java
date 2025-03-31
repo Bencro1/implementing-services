@@ -1,6 +1,7 @@
-package ch.hevs.businessobject;
+package ch.hevs.Entitys;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 

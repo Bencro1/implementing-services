@@ -1,9 +1,12 @@
-package ch.hevs.businessobject;
+package ch.hevs.Entitys;
+
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Tournament {
@@ -25,7 +28,7 @@ public class Tournament {
     
     public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
     	this.tournamentName = tournamentName;
-    	this.StartDate = StartDate;
+    	this.startDate = startDate;
     	this.endDate = endDate;
     	this.location = location;
     	this.cashPrize = cashPrize;

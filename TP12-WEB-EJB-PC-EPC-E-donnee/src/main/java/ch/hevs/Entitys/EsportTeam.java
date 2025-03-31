@@ -1,4 +1,4 @@
-package ch.hevs.businessobject;
+package ch.hevs.Entitys;
 
 import jakarta.persistence.*;
 import java.util.List;

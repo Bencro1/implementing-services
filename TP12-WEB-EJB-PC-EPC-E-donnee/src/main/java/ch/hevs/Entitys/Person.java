@@ -1,4 +1,4 @@
-package ch.hevs.businessobject;
+package ch.hevs.Entitys;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

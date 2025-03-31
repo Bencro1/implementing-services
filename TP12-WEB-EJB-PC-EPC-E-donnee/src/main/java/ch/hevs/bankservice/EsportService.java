@@ -1,9 +1,9 @@
-package ch.hevs.service;
+package ch.hevs.bankservice;
 
-import ch.hevs.businessobject.Coach;
-import ch.hevs.businessobject.EsportTeam;
-import ch.hevs.businessobject.Game;
-import ch.hevs.businessobject.Tournament;
+import ch.hevs.Entitys.Coach;
+import ch.hevs.Entitys.EsportTeam;
+import ch.hevs.Entitys.Game;
+import ch.hevs.Entitys.Tournament;
 
 import jakarta.ejb.Local;
 
