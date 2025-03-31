@@ -9,6 +9,9 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "idNumber")
 public class Coach extends Person {
     private int yearsOfExperience;
+    
+    @OneToOne(mappedBy="coach")
+    private EsportTeam team;	//relation with EsportTeam
 
     // Getters and Setters
     public int getYearsOfExperience() {
@@ -17,5 +20,13 @@ public class Coach extends Person {
 
     public void setYearsOfExperience(int yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
+    }
+    
+    public EsportTeam getTeam() {
+    	return team;
+    }
+    
+    public void setTeam(EsportTeam team) {
+    	this.team = team;
     }
 }

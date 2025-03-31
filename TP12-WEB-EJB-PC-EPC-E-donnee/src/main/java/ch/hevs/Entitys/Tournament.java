@@ -16,6 +16,14 @@ public class Tournament {
     private String location;
     private double cashPrize;
     private Long bankId;
+    
+    // Relations
+    
+    @ManyToMany
+    private List<EsportTeam> esportTeamList;
+    
+    @ManyToMany
+    private List<Game> gameList;
 
     // Getters and Setters
     public Long getId() {
@@ -72,5 +80,21 @@ public class Tournament {
 
     public void setBankId(Long bankId) {
         this.bankId = bankId;
+    }
+    
+    public List<EsportTeam> getTeams() {
+    	return esportTeamList;
+    }
+    
+    public void setTeams(List<EsportTeam> esportTeamList) {
+    	this.esportTeamList = esportTeamList;
+    }
+    
+    public List<Game> getGames() {
+    	return gameList;
+    }
+    
+    public void setGames(List<Game> gameList) {
+    	this.gameList = gameList;
     }
 }

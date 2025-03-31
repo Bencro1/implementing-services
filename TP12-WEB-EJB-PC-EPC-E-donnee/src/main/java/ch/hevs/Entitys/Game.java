@@ -13,6 +13,11 @@ public class Game {
     private String gameName;
     private String category;
     private String developer;
+    
+    // Relations
+    
+    @ManyToMany(mappedBy="gameList")
+    private List<Tournament> tournamentList;
 
     // Getters and Setters
     public Long getIdNumber() {
@@ -45,5 +50,13 @@ public class Game {
 
     public void setDeveloper(String developer) {
         this.developer = developer;
+    }
+    
+    public List<Tournament> getTournaments() {
+    	return tournamentList;
+    }
+    
+    public void setTournaments(List<Tournament> tournamentList) {
+    	this.tournamentList = tournamentList;
     }
 }

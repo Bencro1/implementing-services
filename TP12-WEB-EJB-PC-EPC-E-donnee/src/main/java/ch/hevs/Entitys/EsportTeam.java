@@ -9,18 +9,20 @@ public class EsportTeam {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private String teamName;
+    private String sponsor;
+    private double salary;
+    private Long bankId;
 
     // Relations
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Player> playerList;
-
-    private String sponsor;
     
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "coach_id")
     private Coach coach; // Relation avec Coach
     
-    private double salary;
-    private Long bankId;
+    @ManyToMany(mappedBy="esportTeamList")
+    private List<Tournament> tournamentList;
 
     // Getters and Setters
     public Long getId() {
@@ -45,6 +47,14 @@ public class EsportTeam {
 
     public void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
+    }
+    
+    public List<Tournament> getTournamentList() {
+    	return tournamentList;
+    }
+    
+    public void setTournamentList(List<Tournament> tournamentList) {
+    	this.tournamentList = tournamentList;
     }
 
     public String getSponsor() {
