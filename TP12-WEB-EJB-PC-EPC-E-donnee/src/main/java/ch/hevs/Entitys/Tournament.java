@@ -17,6 +17,21 @@ public class Tournament {
     private double cashPrize;
     private Long bankId;
     
+    // Constructors
+    
+    public Tournament() {
+    	
+    }
+    
+    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
+    	this.tournamentName = tournamentName;
+    	this.StartDate = StartDate;
+    	this.endDate = endDate;
+    	this.location = location;
+    	this.cashPrize = cashPrize;
+    	this.bankId = bankId;
+    }
+    
     // Relations
     
     @ManyToMany
