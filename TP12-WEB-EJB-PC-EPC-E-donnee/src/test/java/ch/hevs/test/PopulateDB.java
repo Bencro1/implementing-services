@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import ch.hevs.Entitys.*;
 import ch.hevs.businessobject.Client;
+import ch.hevs.bankservice.EsportServiceBean;
+import jakarta.ejb.EJB;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -22,6 +24,9 @@ public class PopulateDB extends TestCase {
 			
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU_unitTest");
 			EntityManager em = emf.createEntityManager();
+			
+			EsportServiceBean esportService = new EsportServiceBean();
+			
 			tx = em.getTransaction();
 			tx.begin();
 			
@@ -54,6 +59,10 @@ public class PopulateDB extends TestCase {
 			
 			em.persist(g1);
 			em.persist(g2);
+			
+			esportService.addGame(g1);
+			
+			em.merge(team1);
 			
 			em.persist(team1);
 			em.persist(team2);

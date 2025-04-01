@@ -26,8 +26,6 @@
 <!-- 	For use with JUnit to populate the BD -->	            
     <persistence-unit name="bankPU_unitTest">
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    	<class>ch.hevs.businessobject.Client</class>
-		<class>ch.hevs.businessobject.Account</class>
 		<class>ch.hevs.Entitys.Coach</class>
 		<class>ch.hevs.Entitys.Player</class>
 		<class>ch.hevs.Entitys.EsportTeam</class>
