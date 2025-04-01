@@ -7,8 +7,6 @@
 <!-- 	For use with the application server -->
 	<persistence-unit name="bankPU">
 		<jta-data-source>java:/labsDS</jta-data-source>
-		<class>ch.hevs.businessobject.Client</class>
-		<class>ch.hevs.businessobject.Account</class>
 		<class>ch.hevs.Entitys.Coach</class>
 		<class>ch.hevs.Entitys.Player</class>
 		<class>ch.hevs.Entitys.EsportTeam</class>

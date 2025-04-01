@@ -28,6 +28,9 @@ public class PopulateDB extends TestCase {
 			Tournament t1 = new Tournament("LEC", "2025-03-22", "2025-03-28", "Rue des poiriers 24, Lille 33640", 500000.0, 555555);
 			Tournament t2 = new Tournament("LFI", "2025-06-18", "2025-08-14", "Rue du chignon, Paris 44000", 1000000.0, 666666);
 			
+			em.persist(t1);
+			em.persist(t2);
+			
 			tx.commit();
 
 		} catch (Exception e) {
