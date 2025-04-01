@@ -13,6 +13,20 @@ public class Player extends Person {
     private int age;
     private boolean injured;
     
+    // Constructors
+    
+    public Player() {
+    	
+    }
+    
+    public Player(String firstname, String lastname, String nationality, int age, boolean injured) {
+    	setFirstname(firstname);
+    	setLastname(lastname);
+    	setNationality(nationality);
+    	this.age = age;
+    	this.injured = injured;
+    }
+    
     @ManyToOne
     @JoinColumn(name = "team_id")
     private EsportTeam team;	// Relation with EsportTeam

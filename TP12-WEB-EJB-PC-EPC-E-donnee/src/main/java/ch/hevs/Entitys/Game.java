@@ -17,6 +17,18 @@ public class Game {
     private String category;
     private String developer;
     
+    // Constructor
+    
+    public Game() {
+    	
+    }
+    
+    public Game(String gameName, String category, String developer) {
+    	this.gameName = gameName;
+    	this.category = category;
+    	this.developer = developer;
+    }
+    
     // Relations
     
     @ManyToMany(mappedBy="gameList")

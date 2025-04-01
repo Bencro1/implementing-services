@@ -11,6 +11,21 @@ import jakarta.persistence.Table;
 public class Coach extends Person {
     private int yearsOfExperience;
     
+    // Constructors
+    
+    public Coach() {
+    	
+    }
+    
+    public Coach(String firstname, String lastname, String nationality, int yearsOfExperience) {
+    	setFirstname(firstname);
+    	setLastname(lastname);
+    	setNationality(nationality);
+    	this.yearsOfExperience = yearsOfExperience;
+    }
+    
+    // Relations
+    
     @OneToOne(mappedBy="coach")
     private EsportTeam team;	//relation with EsportTeam
 

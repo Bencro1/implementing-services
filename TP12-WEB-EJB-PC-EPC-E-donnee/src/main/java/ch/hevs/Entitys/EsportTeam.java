@@ -12,6 +12,19 @@ public class EsportTeam {
     private String sponsor;
     private double salary;
     private Long bankId;
+    
+    // Constructors
+    
+    public EsportTeam() {
+    	
+    }
+    
+    public EsportTeam(String teamName, String sponsor, double salary, long bankId) {
+    	this.teamName = teamName;
+    	this.sponsor = sponsor;
+    	this.salary = salary;
+    	this.bankId = bankId;
+    }
 
     // Relations
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
