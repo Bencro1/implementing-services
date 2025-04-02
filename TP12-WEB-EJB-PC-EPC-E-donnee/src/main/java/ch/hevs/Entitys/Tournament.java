@@ -26,21 +26,25 @@ public class Tournament {
     	
     }
     
-    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
-    	this.tournamentName = tournamentName;
-    	this.startDate = startDate;
-    	this.endDate = endDate;
-    	this.location = location;
-    	this.cashPrize = cashPrize;
-    	this.bankId = bankId;
-    }
+	    public Tournament(String tournamentName, String startDate, String endDate, String location, 
+	            double cashPrize, long bankId, List<EsportTeam> esportTeamList, List<Game> gameList) {
+	this.tournamentName = tournamentName;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.location = location;
+	this.cashPrize = cashPrize;
+	this.bankId = bankId;
+	this.esportTeamList = esportTeamList;
+	this.gameList = gameList;
+	}
+
     
     // Relations
     
-    @ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
     private List<EsportTeam> esportTeamList;
     
-    @ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
     private List<Game> gameList;
 
     // Getters and Setters
