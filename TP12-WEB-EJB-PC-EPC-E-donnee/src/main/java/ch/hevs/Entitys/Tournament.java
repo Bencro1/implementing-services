@@ -1,9 +1,14 @@
-package ch.hevs.businessobject;
+package ch.hevs.Entitys;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Tournament {
@@ -17,13 +22,28 @@ public class Tournament {
     private double cashPrize;
     private Long bankId;
     
+    // Constructors
+    
+    public Tournament() {
+    	
+    }
+    
+    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
+    	this.tournamentName = tournamentName;
+    	this.startDate = startDate;
+    	this.endDate = endDate;
+    	this.location = location;
+    	this.cashPrize = cashPrize;
+    	this.bankId = bankId;
+    }
+    
     // Relations
     
     @ManyToMany
     private List<EsportTeam> esportTeamList;
     
-    @ManyToMany
-    private List<Game> gameList;
+    @ManyToOne
+    private Game game;
 
     // Getters and Setters
     public Long getId() {
@@ -90,11 +110,14 @@ public class Tournament {
     	this.esportTeamList = esportTeamList;
     }
     
-    public List<Game> getGames() {
-    	return gameList;
+    public Game getGame() {
+    	return game;
     }
     
-    public void setGames(List<Game> gameList) {
-    	this.gameList = gameList;
+    public void setGame(Game game) {
+    	this.game = game;
     }
+    
+    // Methods
+    
 }

@@ -1,6 +1,7 @@
-package ch.hevs.businessobject;
+package ch.hevs.Entitys;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -9,6 +10,21 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "idNumber")
 public class Coach extends Person {
     private int yearsOfExperience;
+    
+    // Constructors
+    
+    public Coach() {
+    	
+    }
+    
+    public Coach(String firstname, String lastname, String nationality, int yearsOfExperience) {
+    	setFirstname(firstname);
+    	setLastname(lastname);
+    	setNationality(nationality);
+    	this.yearsOfExperience = yearsOfExperience;
+    }
+    
+    // Relations
     
     @OneToOne(mappedBy="coach")
     private EsportTeam team;	//relation with EsportTeam

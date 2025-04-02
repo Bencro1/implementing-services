@@ -1,7 +1,7 @@
 package ch.hevs.managedbeans;
 
-import ch.hevs.businessobject.EsportTeam;
-import ch.hevs.service.EsportService;
+import ch.hevs.Entitys.EsportTeam;
+import ch.hevs.bankservice.EsportService;
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;

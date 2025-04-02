@@ -1,6 +1,8 @@
-package ch.hevs.businessobject;
+package ch.hevs.Entitys;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -10,6 +12,20 @@ import jakarta.persistence.Table;
 public class Player extends Person {
     private int age;
     private boolean injured;
+    
+    // Constructors
+    
+    public Player() {
+    	
+    }
+    
+    public Player(String firstname, String lastname, String nationality, int age, boolean injured) {
+    	setFirstname(firstname);
+    	setLastname(lastname);
+    	setNationality(nationality);
+    	this.age = age;
+    	this.injured = injured;
+    }
     
     @ManyToOne
     @JoinColumn(name = "team_id")
