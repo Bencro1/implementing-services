@@ -1,5 +1,6 @@
 package ch.hevs.Entitys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -7,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Game {
@@ -31,7 +33,7 @@ public class Game {
     
     // Relations
     
-    @ManyToMany(mappedBy="gameList")
+    @OneToMany(mappedBy="game")
     private List<Tournament> tournamentList;
 
     // Getters and Setters
@@ -73,5 +75,15 @@ public class Game {
     
     public void setTournaments(List<Tournament> tournamentList) {
     	this.tournamentList = tournamentList;
+    }
+    
+    // Methods
+    public void addTournament(Tournament tournament) {
+    	if (tournamentList == null) {
+    		this.tournamentList = new ArrayList<>();
+    		this.tournamentList.add(tournament);
+    	} else {
+    		this.tournamentList.add(tournament);
+    	}
     }
 }

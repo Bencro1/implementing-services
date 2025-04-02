@@ -25,8 +25,6 @@ public class PopulateDB extends TestCase {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU_unitTest");
 			EntityManager em = emf.createEntityManager();
 			
-			EsportServiceBean esportService = new EsportServiceBean();
-			
 			tx = em.getTransaction();
 			tx.begin();
 			
@@ -54,15 +52,14 @@ public class PopulateDB extends TestCase {
 			// Coach creation
 			Coach c1 = new Coach("Kim", "Jeong-gyun", "South-Korea", 15);
 			
+			t1.setGame(g1);
+			g1.addTournament(t1);
+			
 			em.persist(t1);
 			em.persist(t2);
 			
 			em.persist(g1);
 			em.persist(g2);
-			
-			esportService.addGame(g1);
-			
-			em.merge(team1);
 			
 			em.persist(team1);
 			em.persist(team2);
