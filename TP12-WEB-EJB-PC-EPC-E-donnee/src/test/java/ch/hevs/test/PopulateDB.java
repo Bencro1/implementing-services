@@ -13,6 +13,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PopulateDB extends TestCase {
 
@@ -30,16 +32,31 @@ public class PopulateDB extends TestCase {
 			
 			// Creation of some entities as base data
 			// Tournaments creation
-			Tournament t1 = new Tournament("LEC", "2025-03-22", "2025-03-28", "Rue des poiriers 24, Lille 33640", 500000.0, 555555);
-			Tournament t2 = new Tournament("LFI", "2025-06-18", "2025-08-14", "Rue du chignon, Paris 44000", 1000000.0, 666666);
+
+			// Avant la création des tournois, initialise les listes
+			List<EsportTeam> teams = new ArrayList<>();
+
+			// Ajoute des équipes et des jeux aux listes
+			teams.add(new EsportTeam("Vitality", "Magnum", 300000.0, 111111L));
+			teams.add(new EsportTeam("T1", "SK telecom", 700000.0, 222222L));
+
+		//	games.add(new Game("League Of Legends", "MOBA", "Riot Games"));
+		//	games.add(new Game("Rocket League", "Sports", "Psyonix"));
 			
 			// Game creation
 			Game g1 = new Game("League Of Legends", "MOBA", "Riot Games");
 			Game g2 = new Game("Rocket League", "Sports", "Psyonix");
-			
+						
 			// Esport team creation
 			EsportTeam team1 = new EsportTeam("Vitality", "Magnum", 300000.0, 111111);
 			EsportTeam team2 = new EsportTeam("T1", "SK telecom", 700000.0, 222222);
+
+			// Création des tournois avec les listes correctement initialisées
+			Tournament t1 = new Tournament("LEC", "2025-03-22", "2025-03-28", 
+			    "Rue des poiriers 24, Lille 33640", 500000.0, 555555L, teams, g1);
+
+			Tournament t2 = new Tournament("LFI", "2025-06-18", "2025-08-14", 
+			    "Rue du chignon, Paris 44000", 1000000.0, 666666L, teams, g1);
 			
 			// Player creation
 			Player p1 = new Player("Lee", "Sang-hyeok", "South-Korea", 28, false);
@@ -52,8 +69,8 @@ public class PopulateDB extends TestCase {
 			// Coach creation
 			Coach c1 = new Coach("Kim", "Jeong-gyun", "South-Korea", 15);
 			
-			t1.setGame(g1);
-			g1.addTournament(t1);
+		//	t1.setGame(g1);
+		//	g1.addTournament(t1);
 			
 			em.persist(t1);
 			em.persist(t2);

@@ -38,8 +38,13 @@ public class EsportServiceBean implements EsportService {
     }
 
     @Override
-    public List<Tournament> getAllTournaments() {
-        return em.createQuery("SELECT t FROM Tournament t", Tournament.class).getResultList();
+    public List<Object[]> getTournamentsWithDetails() {
+        return em.createQuery(
+            "SELECT t.tournamentName, e.teamName, g.gameName " +
+            "FROM Tournament t " +
+            "LEFT JOIN t.esportTeamList e " +
+            "LEFT JOIN t.game g", Object[].class)
+            .getResultList();
     }
 
     @Override
