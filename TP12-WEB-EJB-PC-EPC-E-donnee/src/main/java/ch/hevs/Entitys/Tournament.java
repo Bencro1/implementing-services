@@ -25,16 +25,21 @@ public class Tournament {
     // Constructors
     
     public Tournament() {
-    	
+    	this.esportTeamList = new ArrayList<EsportTeam>();
     }
     
-    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
+    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId, List<EsportTeam> teams, Game game) {
+    	this.esportTeamList = new ArrayList<EsportTeam>();
+    	
     	this.tournamentName = tournamentName;
     	this.startDate = startDate;
     	this.endDate = endDate;
     	this.location = location;
     	this.cashPrize = cashPrize;
     	this.bankId = bankId;
+    	
+    	this.esportTeamList = teams;
+    	this.game = game;
     }
     
     // Relations
