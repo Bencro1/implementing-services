@@ -15,7 +15,7 @@ public interface EsportService {
     void addTournament(Tournament tournament);
     void addGame(Game game);
     List<EsportTeam> getAllTeams();
-    List<Tournament> getAllTournaments();
+   // List<Tournament> getAllTournaments();
     List<Game> getAllGames();
     List<Object[]> getTournamentsWithDetails();
     void addCoach(Coach coach);
