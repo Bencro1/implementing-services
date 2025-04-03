@@ -12,9 +12,25 @@
     		<br></br>
     		<h:panelGrid columns="2">
     			<h:outputText value="Write tournament name:"></h:outputText>
-    			<h:inputText></h:inputText>
+    			<h:inputText value="#{TournamentDetailsBean.tournamentName}"></h:inputText>
     		</h:panelGrid>
+    		
+    		<h:commandButton value="Search" action="#{TournamentDetailsBean.searchTournament}"></h:commandButton>
     	</h:form>
+    	<h:dataTable value="#{TournamentDetailsBean.tournamentDetails}" var="tournament" rendered="#{not empty TournamentDetailsBean.tournamentDetails}">
+    		<h:column>
+    			<f:facet name="header">Nom</f:facet>
+    			#{tournament[0]}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Date</f:facet>
+    			#{tournament[1]}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Lieu</f:facet>
+    			#{tournament[2]}
+    		</h:column>
+    	</h:dataTable>
     </ui:define>
     </ui:composition>
 </html>

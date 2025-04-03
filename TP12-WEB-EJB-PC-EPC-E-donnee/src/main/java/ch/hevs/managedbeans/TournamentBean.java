@@ -18,15 +18,15 @@ import jakarta.inject.Named;
 public class TournamentBean implements Serializable {
 	private List<Tournament> tournaments;
 	private List<String> tournamentNames;
-	private TournamentService tournamentService;
+//	private TournamentService tournamentService;
 	
 	@PostConstruct
 	public void initialize() throws NamingException {
 		// Use JNDI to inject reference to tournament EJB
 		InitialContext ctx = new InitialContext();
-		tournamentService = (Tournament) ctx.lookup(null);
+	//	tournamentService = (Tournament) ctx.lookup(null);
 		
 		// get tournaments
-		List<Tournament> tournamentList = tournamentService.getTournaments();
+	//	List<Tournament> tournamentList = tournamentService.getTournaments();
 	}
 }

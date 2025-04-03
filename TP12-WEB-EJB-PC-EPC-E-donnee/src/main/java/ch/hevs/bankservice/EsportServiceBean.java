@@ -46,6 +46,18 @@ public class EsportServiceBean implements EsportService {
             "LEFT JOIN t.game g", Object[].class)
             .getResultList();
     }
+    
+    @Override
+    public List<Object[]> findTournamentByName(String tournamentName) {
+        return em.createQuery(
+            "SELECT t.tournamentName, e.teamName, g.gameName " +
+            "FROM Tournament t " +
+            "LEFT JOIN t.esportTeamList e " +
+            "LEFT JOIN t.game g " +
+            "WHERE LOWER(t.tournamentName) LIKE LOWER(:name)", Object[].class)
+            .setParameter("name", "%" + tournamentName + "%")
+            .getResultList();
+    }
 
     @Override
     public List<Game> getAllGames() {

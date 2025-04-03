@@ -14,6 +14,7 @@ public interface EsportService {
     void addTeam(EsportTeam team);
     void addTournament(Tournament tournament);
     void addGame(Game game);
+    List<Object[]> findTournamentByName(String tournamentName);
     List<EsportTeam> getAllTeams();
    // List<Tournament> getAllTournaments();
     List<Game> getAllGames();
