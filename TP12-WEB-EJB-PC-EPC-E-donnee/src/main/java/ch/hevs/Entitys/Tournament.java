@@ -1,5 +1,6 @@
 package ch.hevs.Entitys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -7,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Tournament {
@@ -26,26 +28,22 @@ public class Tournament {
     	
     }
     
-	    public Tournament(String tournamentName, String startDate, String endDate, String location, 
-	            double cashPrize, long bankId, List<EsportTeam> esportTeamList, List<Game> gameList) {
-	this.tournamentName = tournamentName;
-	this.startDate = startDate;
-	this.endDate = endDate;
-	this.location = location;
-	this.cashPrize = cashPrize;
-	this.bankId = bankId;
-	this.esportTeamList = esportTeamList;
-	this.gameList = gameList;
-	}
-
+    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
+    	this.tournamentName = tournamentName;
+    	this.startDate = startDate;
+    	this.endDate = endDate;
+    	this.location = location;
+    	this.cashPrize = cashPrize;
+    	this.bankId = bankId;
+    }
     
     // Relations
     
-	@ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<EsportTeam> esportTeamList;
     
-	@ManyToMany(fetch = FetchType.EAGER)
-    private List<Game> gameList;
+    @ManyToOne
+    private Game game;
 
     // Getters and Setters
     public Long getId() {
@@ -112,11 +110,14 @@ public class Tournament {
     	this.esportTeamList = esportTeamList;
     }
     
-    public List<Game> getGames() {
-    	return gameList;
+    public Game getGame() {
+    	return game;
     }
     
-    public void setGames(List<Game> gameList) {
-    	this.gameList = gameList;
+    public void setGame(Game game) {
+    	this.game = game;
     }
+    
+    // Methods
+    
 }
