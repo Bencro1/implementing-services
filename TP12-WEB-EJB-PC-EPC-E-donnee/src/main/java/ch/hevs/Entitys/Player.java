@@ -1,5 +1,6 @@
 package ch.hevs.Entitys;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -27,8 +28,8 @@ public class Player extends Person {
     	this.injured = injured;
     }
     
-    @ManyToOne
-    @JoinColumn(name = "team_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "team_id")
     private EsportTeam team;	// Relation with EsportTeam
 
     // Getters and Setters

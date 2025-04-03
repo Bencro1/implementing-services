@@ -1,6 +1,8 @@
 package ch.hevs.Entitys;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,10 +18,12 @@ public class EsportTeam {
     // Constructors
     
     public EsportTeam() {
-    	
+    	this.tournamentList = new ArrayList<>();
     }
     
     public EsportTeam(String teamName, String sponsor, double salary, long bankId) {
+    	this.tournamentList = new ArrayList<>();
+    	
     	this.teamName = teamName;
     	this.sponsor = sponsor;
     	this.salary = salary;
@@ -30,11 +34,11 @@ public class EsportTeam {
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Player> playerList;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coach_id")
     private Coach coach; // Relation avec Coach
     
-    @ManyToMany(mappedBy="esportTeamList")
+    @ManyToMany(mappedBy="esportTeamList", cascade = CascadeType.ALL)
     private List<Tournament> tournamentList;
 
     // Getters and Setters
@@ -100,5 +104,11 @@ public class EsportTeam {
 
     public void setBankId(Long bankId) {
         this.bankId = bankId;
+    }
+    
+    // Helper methods
+    
+    public void addTournament(Tournament tournament) {
+    	this.tournamentList.add(tournament);
     }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 
 @ManagedBean
 @SessionScoped
+@Named("TournamentDetailsBean")
 public class TournamentDetailsBean implements Serializable {
 
     @Inject
@@ -23,7 +24,7 @@ public class TournamentDetailsBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        tournamentDetails = esportService.getTournamentsWithDetails();
+        tournamentDetails = esportService.getAllTournaments();
         if (tournamentDetails == null) {
             tournamentDetails = List.of();
         }
@@ -38,4 +39,14 @@ public class TournamentDetailsBean implements Serializable {
     public List<Object[]> getTournamentDetails() {
         return tournamentDetails;
     }
+
+	public String getTournamentName() {
+		return tournamentName;
+	}
+
+	public void setTournamentName(String tournamentName) {
+		this.tournamentName = tournamentName;
+	}
+    
+    
 }

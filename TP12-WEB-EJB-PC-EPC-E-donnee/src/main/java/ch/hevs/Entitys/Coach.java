@@ -1,5 +1,6 @@
 package ch.hevs.Entitys;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -26,7 +27,7 @@ public class Coach extends Person {
     
     // Relations
     
-    @OneToOne(mappedBy="coach")
+    @OneToOne(mappedBy="coach", cascade = CascadeType.ALL)
     private EsportTeam team;	//relation with EsportTeam
 
     // Getters and Setters

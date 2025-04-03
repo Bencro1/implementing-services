@@ -3,6 +3,7 @@ package ch.hevs.Entitys;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Game {
     
     // Relations
     
-    @OneToMany(mappedBy="game")
+    @OneToMany(mappedBy="game", cascade = CascadeType.ALL)
     private List<Tournament> tournamentList;
 
     // Getters and Setters

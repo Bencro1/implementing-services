@@ -37,11 +37,6 @@ public class PopulateDB extends TestCase {
 			List<EsportTeam> teams = new ArrayList<>();
 
 			// Ajoute des équipes et des jeux aux listes
-			teams.add(new EsportTeam("Vitality", "Magnum", 300000.0, 111111L));
-			teams.add(new EsportTeam("T1", "SK telecom", 700000.0, 222222L));
-
-		//	games.add(new Game("League Of Legends", "MOBA", "Riot Games"));
-		//	games.add(new Game("Rocket League", "Sports", "Psyonix"));
 			
 			// Game creation
 			Game g1 = new Game("League Of Legends", "MOBA", "Riot Games");
@@ -50,13 +45,16 @@ public class PopulateDB extends TestCase {
 			// Esport team creation
 			EsportTeam team1 = new EsportTeam("Vitality", "Magnum", 300000.0, 111111);
 			EsportTeam team2 = new EsportTeam("T1", "SK telecom", 700000.0, 222222);
+			
+			teams.add(team1);
+			teams.add(team2);
 
 			// Création des tournois avec les listes correctement initialisées
 			Tournament t1 = new Tournament("LEC", "2025-03-22", "2025-03-28", 
-			    "Rue des poiriers 24, Lille 33640", 500000.0, 555555L, teams, g1);
+			    "Rue des poiriers 24, Lille 33640", 500000.0, 555555L);
 
 			Tournament t2 = new Tournament("LFI", "2025-06-18", "2025-08-14", 
-			    "Rue du chignon, Paris 44000", 1000000.0, 666666L, teams, g1);
+			    "Rue du chignon, Paris 44000", 1000000.0, 666666L);
 			
 			// Player creation
 			Player p1 = new Player("Lee", "Sang-hyeok", "South-Korea", 28, false);
@@ -69,17 +67,21 @@ public class PopulateDB extends TestCase {
 			// Coach creation
 			Coach c1 = new Coach("Kim", "Jeong-gyun", "South-Korea", 15);
 			
-		//	t1.setGame(g1);
-		//	g1.addTournament(t1);
+			t1.setGame(g1);
+			g1.addTournament(t1);
+			
+			t1.setTeams(teams);
+			team1.addTournament(t1);
+			team2.addTournament(t1);
+			
+			em.persist(team1);
+			em.persist(team2);
 			
 			em.persist(t1);
 			em.persist(t2);
 			
 			em.persist(g1);
 			em.persist(g2);
-			
-			em.persist(team1);
-			em.persist(team2);
 			
 			em.persist(p1);
 			em.persist(p2);

@@ -38,6 +38,15 @@ public class EsportServiceBean implements EsportService {
     }
 
     @Override
+	public List<Object[]> getAllTournaments() {
+    	return em.createQuery(
+                "SELECT t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
+                "FROM Tournament t " +
+                "LEFT JOIN t.game g ", Object[].class)
+                .getResultList();
+	}
+
+	@Override
     public List<Object[]> getTournamentsWithDetails() {
         return em.createQuery(
             "SELECT t.tournamentName, e.teamName, g.gameName " +
@@ -50,9 +59,8 @@ public class EsportServiceBean implements EsportService {
     @Override
     public List<Object[]> findTournamentByName(String tournamentName) {
         return em.createQuery(
-            "SELECT t.tournamentName, e.teamName, g.gameName " +
+            "SELECT t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
             "FROM Tournament t " +
-            "LEFT JOIN t.esportTeamList e " +
             "LEFT JOIN t.game g " +
             "WHERE LOWER(t.tournamentName) LIKE LOWER(:name)", Object[].class)
             .setParameter("name", "%" + tournamentName + "%")
