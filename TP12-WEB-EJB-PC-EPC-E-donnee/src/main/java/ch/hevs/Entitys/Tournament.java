@@ -3,6 +3,7 @@ package ch.hevs.Entitys;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,11 +26,12 @@ public class Tournament {
     // Constructors
     
     public Tournament() {
-    	this.esportTeamList = new ArrayList<EsportTeam>();
+    	this.esportTeamList = new ArrayList<>();
+    	System.out.println("espor teams works: " + esportTeamList);
     }
     
-    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId, List<EsportTeam> teams, Game game) {
-    	this.esportTeamList = new ArrayList<EsportTeam>();
+    public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
+    	this.esportTeamList = new ArrayList<>();
     	
     	this.tournamentName = tournamentName;
     	this.startDate = startDate;
@@ -37,17 +39,14 @@ public class Tournament {
     	this.location = location;
     	this.cashPrize = cashPrize;
     	this.bankId = bankId;
-    	
-    	this.esportTeamList = teams;
-    	this.game = game;
     }
     
     // Relations
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<EsportTeam> esportTeamList;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Game game;
 
     // Getters and Setters

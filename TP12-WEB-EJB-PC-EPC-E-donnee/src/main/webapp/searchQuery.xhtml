@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+    <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+    	<h:form>
+    		<h:outputLabel value="Query"></h:outputLabel>
+    		<br></br>
+    		<h:panelGrid columns="2">
+    			<h:outputText value="Write tournament name:"></h:outputText>
+    			<h:inputText value="#{TournamentDetailsBean.tournamentName}"></h:inputText>
+    		</h:panelGrid>
+    		
+    		<h:commandButton value="Search" action="#{TournamentDetailsBean.searchTournament}"></h:commandButton>
+    	</h:form>
+    	<h:dataTable value="#{TournamentDetailsBean.tournamentDetails}" var="tournament" rendered="#{not empty TournamentDetailsBean.tournamentDetails}">
+    		<h:column>
+    			<f:facet name="header">Nom</f:facet>
+    			#{tournament[0]}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Start Date</f:facet>
+    			#{tournament[1]}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">End Date</f:facet>
+    			#{tournament[2]}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Location</f:facet>
+    			#{tournament[3]}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Game</f:facet>
+    			#{tournament[4]}
+    		</h:column>
+    	</h:dataTable>
+    </ui:define>
+    </ui:composition>
+    </body>
+</html>
