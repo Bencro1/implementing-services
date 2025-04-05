@@ -20,4 +20,5 @@ public interface EsportService {
     List<Game> getAllGames();
     List<Object[]> getTournamentsWithDetails();
     void addCoach(Coach coach);
+    Tournament getTournamentById(Long id);
 }

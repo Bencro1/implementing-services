@@ -76,4 +76,9 @@ public class EsportServiceBean implements EsportService {
     public void addCoach(Coach coach) {
         em.persist(coach);
     }
+    
+    @Override
+    public Tournament getTournamentById(Long id) {
+        return em.find(Tournament.class, id);
+    }
 }
