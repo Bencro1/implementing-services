@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
+<h:head>
   <title><ui:insert name="title">Default title</ui:insert></title>
-  <h:outputStylesheet name="css/styles.css"/>
-</head>
+  <h:outputStylesheet name="style.css" library="css"/>
+</h:head>
 
 <body>
 <ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>

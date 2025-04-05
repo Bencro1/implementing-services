@@ -19,6 +19,10 @@ public class TournamentDetailsBean implements Serializable {
     private EsportService esportService;
     
     private String tournamentName;
+    private String newTournamentName;
+    private String newStartDate;
+    private String newEndDate;
+    private String newLocation;
 
     private List<Object[]> tournamentDetails;
 
@@ -39,6 +43,12 @@ public class TournamentDetailsBean implements Serializable {
     public List<Object[]> getTournamentDetails() {
         return tournamentDetails;
     }
+    
+    public void resetSearch() {
+    	tournamentDetails = esportService.getAllTournaments();
+    }
+    
+    // Getter and setter
 
 	public String getTournamentName() {
 		return tournamentName;
@@ -47,6 +57,37 @@ public class TournamentDetailsBean implements Serializable {
 	public void setTournamentName(String tournamentName) {
 		this.tournamentName = tournamentName;
 	}
-    
+
+	public String getNewTournamentName() {
+		return newTournamentName;
+	}
+
+	public void setNewTournamentName(String newTournamentName) {
+		this.newTournamentName = newTournamentName;
+	}
+
+	public String getNewStartDate() {
+		return newStartDate;
+	}
+
+	public void setNewStartDate(String newStartDate) {
+		this.newStartDate = newStartDate;
+	}
+
+	public String getNewEndDate() {
+		return newEndDate;
+	}
+
+	public void setNewEndDate(String newEndDate) {
+		this.newEndDate = newEndDate;
+	}
+
+	public String getNewLocation() {
+		return newLocation;
+	}
+
+	public void setNewLocation(String newLocation) {
+		this.newLocation = newLocation;
+	}
     
 }

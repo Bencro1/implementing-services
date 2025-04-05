@@ -5,20 +5,41 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
-    <body>
+    <h:head>
+    	<h:outputStylesheet name="style.css" library="css"/>
+    </h:head>
+    <h:body>
     <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
     	<h:form>
-    		<h:outputLabel value="Query"></h:outputLabel>
-    		<br></br>
     		<h:panelGrid columns="2">
     			<h:outputText value="Write tournament name:"></h:outputText>
     			<h:inputText value="#{TournamentDetailsBean.tournamentName}"></h:inputText>
     		</h:panelGrid>
     		
     		<h:commandButton value="Search" action="#{TournamentDetailsBean.searchTournament}"></h:commandButton>
+    		<h:commandButton value="Reset" action="#{TournamentDetailsBean.resetSearch}"></h:commandButton>
     	</h:form>
-    	<h:dataTable value="#{TournamentDetailsBean.tournamentDetails}" var="tournament" rendered="#{not empty TournamentDetailsBean.tournamentDetails}">
+    	<br></br>
+    	<h:form rendered="#{request.isUserInRole('organizer')}">
+    		<h:panelGrid columns="2">
+    			<h:outputText value="Tournament name"></h:outputText>
+    			<h:inputText value="#{TournamentDetailsBean.newTournamentName}"></h:inputText>
+    			
+    			<h:outputText value="Start Date"></h:outputText>
+    			<h:inputText value="#{TournamentDetailsBean.newStartDate}"></h:inputText>
+    			
+    			<h:outputText value="End Date"></h:outputText>
+    			<h:inputText value="#{TournamentDetailsBean.newEndDate}"></h:inputText>
+    			
+    			<h:outputText value="Location"></h:outputText>
+    			<h:inputText value="#{TournamentDetailsBean.newLocation}"></h:inputText>
+    		</h:panelGrid>
+    	</h:form>
+    	<h:commandButton value="Add Tournament" action="#{TournamentDetailsBean.createTournament}" rendered="#{request.isUserInRole('organizer')}"></h:commandButton>
+    	<h:dataTable value="#{TournamentDetailsBean.tournamentDetails}" var="tournament" rendered="#{not empty TournamentDetailsBean.tournamentDetails}"
+    					styleClass="ma-table"
+    					>
     		<h:column>
     			<f:facet name="header">Nom</f:facet>
     			#{tournament[0]}
@@ -42,5 +63,5 @@
     	</h:dataTable>
     </ui:define>
     </ui:composition>
-    </body>
+    </h:body>
 </html>
