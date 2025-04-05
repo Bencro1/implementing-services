@@ -1,6 +1,7 @@
 package ch.hevs.managedbeans;
 
 import ch.hevs.bankservice.EsportService;
+import ch.hevs.Entitys.EsportTeam;
 import ch.hevs.Entitys.Tournament;
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
@@ -102,6 +103,15 @@ public class TournamentDetailsBean implements Serializable {
     public void setNewLocation(String newLocation) {
         this.newLocation = newLocation;
     }
+
+	public List<String> getTeamNames() {
+    if (tournament != null && tournament.getTeams() != null) {
+        return tournament.getTeams().stream()
+                         .map(EsportTeam::getTeamName)
+                         .toList();
+    }
+    return List.of(); // Retourne une liste vide si aucune équipe n'est trouvée
+	}
 
     public String loadTournamentDetails(Long tournamentId) {
 		tournament = esportService.getTournamentById(tournamentId);

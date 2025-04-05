@@ -35,6 +35,13 @@
         <h:outputText
           value="#{TournamentDetailsBean.tournament.game.gameName}"
         />
+
+        <h:outputText value="Teams:" style="font-weight: bold" />
+        <h:dataTable value="#{TournamentDetailsBean.teamNames}" var="teamName">
+          <h:column>
+            <h:outputText value="#{teamName}" />
+          </h:column>
+        </h:dataTable>
       </h:panelGrid>
 
       <h:outputText
