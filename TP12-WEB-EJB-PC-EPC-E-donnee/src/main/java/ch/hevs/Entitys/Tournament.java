@@ -31,14 +31,13 @@ public class Tournament {
     }
     
     public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
-    	this.esportTeamList = new ArrayList<>();
-    	
-    	this.tournamentName = tournamentName;
-    	this.startDate = startDate;
-    	this.endDate = endDate;
-    	this.location = location;
-    	this.cashPrize = cashPrize;
-    	this.bankId = bankId;
+        this.esportTeamList = new ArrayList<>();
+        this.tournamentName = tournamentName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.cashPrize = cashPrize;
+        this.bankId = bankId;
     }
     
     // Relations
