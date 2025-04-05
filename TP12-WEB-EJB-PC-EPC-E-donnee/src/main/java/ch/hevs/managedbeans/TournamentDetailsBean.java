@@ -1,6 +1,5 @@
 package ch.hevs.managedbeans;
 
-import ch.hevs.Entitys.Tournament;
 import ch.hevs.bankservice.EsportService;
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
@@ -18,12 +17,14 @@ public class TournamentDetailsBean implements Serializable {
 
     @Inject
     private EsportService esportService;
-
+    
     private String tournamentName;
-    private List<Object[]> tournamentDetails;
+    private String newTournamentName;
+    private String newStartDate;
+    private String newEndDate;
+    private String newLocation;
 
-    private Long tournamentId; // ID du tournoi sélectionné
-    private Tournament selectedTournament; // Détails du tournoi sélectionné
+    private List<Object[]> tournamentDetails;
 
     @PostConstruct
     public void init() {
@@ -32,44 +33,61 @@ public class TournamentDetailsBean implements Serializable {
             tournamentDetails = List.of();
         }
     }
-
+    
     public void searchTournament() {
-        if (tournamentName != null && !tournamentName.trim().isEmpty()) {
+    	if (tournamentName != null && !tournamentName.trim().isEmpty()) {
             tournamentDetails = esportService.findTournamentByName(tournamentName);
-        }
-    }
-
-    public void resetSearch() {
-        tournamentDetails = esportService.getAllTournaments();
-    }
-
-    public void loadTournamentDetails() {
-        if (tournamentId != null) {
-            selectedTournament = esportService.getTournamentById(tournamentId);
         }
     }
 
     public List<Object[]> getTournamentDetails() {
         return tournamentDetails;
     }
-
-    public String getTournamentName() {
-        return tournamentName;
+    
+    public void resetSearch() {
+    	tournamentDetails = esportService.getAllTournaments();
     }
+    
+    // Getter and setter
 
-    public void setTournamentName(String tournamentName) {
-        this.tournamentName = tournamentName;
-    }
+	public String getTournamentName() {
+		return tournamentName;
+	}
 
-    public Long getTournamentId() {
-        return tournamentId;
-    }
+	public void setTournamentName(String tournamentName) {
+		this.tournamentName = tournamentName;
+	}
 
-    public void setTournamentId(Long tournamentId) {
-        this.tournamentId = tournamentId;
-    }
+	public String getNewTournamentName() {
+		return newTournamentName;
+	}
 
-    public Tournament getSelectedTournament() {
-        return selectedTournament;
-    }
+	public void setNewTournamentName(String newTournamentName) {
+		this.newTournamentName = newTournamentName;
+	}
+
+	public String getNewStartDate() {
+		return newStartDate;
+	}
+
+	public void setNewStartDate(String newStartDate) {
+		this.newStartDate = newStartDate;
+	}
+
+	public String getNewEndDate() {
+		return newEndDate;
+	}
+
+	public void setNewEndDate(String newEndDate) {
+		this.newEndDate = newEndDate;
+	}
+
+	public String getNewLocation() {
+		return newLocation;
+	}
+
+	public void setNewLocation(String newLocation) {
+		this.newLocation = newLocation;
+	}
+    
 }
