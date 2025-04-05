@@ -34,9 +34,16 @@
     			
     			<h:outputText value="Location"></h:outputText>
     			<h:inputText value="#{TournamentDetailsBean.newLocation}"></h:inputText>
+    			
+    			<h:outputText value="CashPrize"></h:outputText>
+    			<h:inputText value="#{TournamentDetailsBean.newCashPrize}"></h:inputText>
+    			
+    			<h:outputText value="Bank ID"></h:outputText>
+    			<h:inputText value="#{TournamentDetailsBean.newBankId}"></h:inputText>
     		</h:panelGrid>
     	</h:form>
     	<h:commandButton value="Add Tournament" action="#{TournamentDetailsBean.createTournament}" rendered="#{request.isUserInRole('organizer')}"></h:commandButton>
+    	<h:commandLink value="Test" action="#{TournamentDetailsBean.createTournament}"></h:commandLink>
     	<h:dataTable value="#{TournamentDetailsBean.tournamentDetails}" var="tournament" rendered="#{not empty TournamentDetailsBean.tournamentDetails}"
     					styleClass="ma-table"
     					>

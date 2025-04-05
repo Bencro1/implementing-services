@@ -8,6 +8,7 @@ import ch.hevs.Entitys.Tournament;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -23,7 +24,16 @@ public class EsportServiceBean implements EsportService {
     }
 
     @Override
-    public void addTournament(Tournament tournament) {
+    @Transactional
+    public void addTournament(String newTournamentName, String newStartDate, String newEndDate, String newLocation, double cashPrize, long bankId) {
+    	Tournament tournament = new Tournament();
+    	tournament.setTournamentName(newTournamentName);
+    	tournament.setStartDate(newStartDate);
+    	tournament.setEndDate(newEndDate);
+    	tournament.setLocation(newLocation);
+    	tournament.setCashPrize(cashPrize);
+    	tournament.setBankId(bankId);
+    	
         em.persist(tournament);
     }
 
