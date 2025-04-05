@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
-h\\:column {
-	padding: 50px;
-	border-bottom: 1px solid #ddd;
+.ma-table {
+	width: 100%;
+}
+
+.ma-table td {
+	padding: 10px;
 }

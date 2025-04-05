@@ -39,6 +39,10 @@ public class TournamentDetailsBean implements Serializable {
     public List<Object[]> getTournamentDetails() {
         return tournamentDetails;
     }
+    
+    public void resetSearch() {
+    	tournamentDetails = esportService.getAllTournaments();
+    }
 
 	public String getTournamentName() {
 		return tournamentName;
