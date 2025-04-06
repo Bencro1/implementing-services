@@ -12,6 +12,10 @@
     <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
     	<h:form>
+    		<h:outputLabel value="Back button to Home"></h:outputLabel>
+    		<h:commandButton value="Back Home" action="welcomeTournament"></h:commandButton>
+    	</h:form>
+    	<h:form>
     		<h:panelGrid columns="2">
     			<h:outputText value="Write tournament name:"></h:outputText>
     			<h:inputText value="#{TournamentDetailsBean.tournamentName}"></h:inputText>

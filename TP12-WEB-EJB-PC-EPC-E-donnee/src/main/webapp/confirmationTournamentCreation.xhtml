@@ -8,7 +8,11 @@
     <h:body>
     <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
-		
+		<h:form>
+			<h:commandLink action="searchQuery">
+				<h:outputLabel value="Go back to Tournament listing"></h:outputLabel>
+			</h:commandLink>
+		</h:form>
     </ui:define>
     </ui:composition>
     </h:body>
