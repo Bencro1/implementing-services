@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+>
+  <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+      <h:outputText value="Game Management:" style="font-weight: bold" />
+      <br />
+
+      <!-- Search form -->
+      <h:form>
+        <h:panelGrid columns="2">
+          <h:outputText value="Write game name:" />
+          <h:inputText value="#{GameDetailsBean.searchGameName}" />
+        </h:panelGrid>
+
+        <h:commandButton
+          value="Search"
+          action="#{GameDetailsBean.searchGame}"
+        />
+        <h:commandButton
+          value="Reset"
+          action="#{GameDetailsBean.resetSearch}"
+        />
+      </h:form>
+
+      <br />
+
+      <!-- Form for adding a new game -->
+      <h:form>
+        <h:panelGrid columns="2">
+          <h:outputText value="Game name:" />
+          <h:inputText value="#{GameDetailsBean.newGameName}" />
+
+          <h:outputText value="Category:" />
+          <h:inputText value="#{GameDetailsBean.category}" />
+
+          <h:outputText value="Developer:" />
+          <h:inputText value="#{GameDetailsBean.developer}" />
+        </h:panelGrid>
+
+        <h:commandButton
+          value="Add Game"
+          action="#{GameDetailsBean.createGame}"
+        />
+      </h:form>
+
+      <br />
+
+      <!-- Table displaying game details -->
+      <h:dataTable
+        value="#{GameDetailsBean.gameDetails}"
+        var="game"
+        styleClass="ma-table"
+      >
+        <h:column>
+          <f:facet name="header">Game Name</f:facet>
+          #{game.gameName}
+        </h:column>
+        <h:column>
+          <f:facet name="header">Category</f:facet>
+          #{game.category}
+        </h:column>
+        <h:column>
+          <f:facet name="header">Developer</f:facet>
+          #{game.developer}
+        </h:column>
+      </h:dataTable>
+    </ui:define>
+  </ui:composition>
+</html>
