@@ -21,7 +21,7 @@ public class PopulateDB extends TestCase {
         EntityTransaction tx = null;
         try {
             // Initialisation de l'EntityManager
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU");
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU_unitTest");
 			EntityManager em = emf.createEntityManager();
 
             tx = em.getTransaction();
