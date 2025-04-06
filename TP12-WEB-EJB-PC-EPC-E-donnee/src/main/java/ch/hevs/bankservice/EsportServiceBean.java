@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Stateless
@@ -48,13 +49,22 @@ public class EsportServiceBean implements EsportService {
     }
 
     @Override
-public List<Object[]> getAllTournaments() {
-    return em.createQuery(
-        "SELECT t.id, t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
-        "FROM Tournament t " +
-        "LEFT JOIN t.game g", Object[].class)
-        .getResultList();
-}
+    public List<Object[]> getAllTournaments() {
+        List<Object[]> tournaments = em.createQuery(
+            "SELECT t.id, t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
+            "FROM Tournament t " +
+            "LEFT JOIN t.game g", Object[].class)
+            .getResultList();
+        
+        System.out.println("Number of tournaments found: " + tournaments.size());
+        
+        // Log each tournament for debugging
+        for (Object[] tournament : tournaments) {
+            System.out.println("Tournament: " + Arrays.toString(tournament));
+        }
+        
+        return tournaments;
+    }
 
 	@Override
     public List<Object[]> getTournamentsWithDetails() {
