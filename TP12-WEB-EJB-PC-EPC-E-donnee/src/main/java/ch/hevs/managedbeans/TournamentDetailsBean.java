@@ -23,6 +23,8 @@ public class TournamentDetailsBean implements Serializable {
     private String newStartDate;
     private String newEndDate;
     private String newLocation;
+    private double newCashPrize;
+    private long newBankId;
 
     private List<Object[]> tournamentDetails;
 
@@ -46,6 +48,19 @@ public class TournamentDetailsBean implements Serializable {
     
     public void resetSearch() {
     	tournamentDetails = esportService.getAllTournaments();
+    }
+    
+    public String createTournament() {
+    	esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, newCashPrize, newBankId);	
+    	
+    	newTournamentName = "";
+    	newStartDate = "";
+    	newEndDate = "";
+    	newLocation = "";
+    	newCashPrize = 0;
+    	newBankId = 0;
+    	
+    	return "confirmationTournamentCreation";
     }
     
     // Getter and setter
@@ -88,6 +103,22 @@ public class TournamentDetailsBean implements Serializable {
 
 	public void setNewLocation(String newLocation) {
 		this.newLocation = newLocation;
+	}
+
+	public double getNewCashPrize() {
+		return newCashPrize;
+	}
+
+	public void setNewCashPrize(double newCashPrize) {
+		this.newCashPrize = newCashPrize;
+	}
+
+	public long getNewBankId() {
+		return newBankId;
+	}
+
+	public void setNewBankId(long newBankId) {
+		this.newBankId = newBankId;
 	}
     
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Local
 public interface EsportService {
     void addTeam(EsportTeam team);
-    void addTournament(Tournament tournament);
+    void addTournament(String newTournamentName, String newStartDate, String newEndDate, String newLocation, double cashPrize, long bankId);
     void addGame(Game game);
     List<Object[]> findTournamentByName(String tournamentName);
     List<EsportTeam> getAllTeams();
