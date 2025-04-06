@@ -42,7 +42,7 @@ public class Tournament {
     
     // Relations
     
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EsportTeam> esportTeamList;
     
     @ManyToOne(cascade = CascadeType.ALL)
