@@ -1,11 +1,14 @@
 package ch.hevs.managedbeans;
 
 import ch.hevs.bankservice.EsportService;
+import ch.hevs.Entitys.EsportTeam;
+import ch.hevs.Entitys.Tournament;
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.faces.context.FacesContext;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,10 +26,11 @@ public class TournamentDetailsBean implements Serializable {
     private String newStartDate;
     private String newEndDate;
     private String newLocation;
-    private double newCashPrize;
-    private long newBankId;
 
     private List<Object[]> tournamentDetails;
+
+    // Ajout de la variable tournament
+    private Tournament tournament;
 
     @PostConstruct
     public void init() {
@@ -37,7 +41,7 @@ public class TournamentDetailsBean implements Serializable {
     }
     
     public void searchTournament() {
-    	if (tournamentName != null && !tournamentName.trim().isEmpty()) {
+        if (tournamentName != null && !tournamentName.trim().isEmpty()) {
             tournamentDetails = esportService.findTournamentByName(tournamentName);
         }
     }
@@ -47,78 +51,96 @@ public class TournamentDetailsBean implements Serializable {
     }
     
     public void resetSearch() {
-    	tournamentDetails = esportService.getAllTournaments();
+        tournamentDetails = esportService.getAllTournaments();
     }
     
-    public String createTournament() {
-    	esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, newCashPrize, newBankId);	
-    	
-    	newTournamentName = "";
-    	newStartDate = "";
-    	newEndDate = "";
-    	newLocation = "";
-    	newCashPrize = 0;
-    	newBankId = 0;
-    	
-    	return "confirmationTournamentCreation";
+    // Getter et setter pour tournament
+    public Tournament getTournament() {
+        return tournament;
     }
-    
-    // Getter and setter
 
-	public String getTournamentName() {
-		return tournamentName;
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
+
+    // Getter et setter existants
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public String getNewTournamentName() {
+        return newTournamentName;
+    }
+
+    public void setNewTournamentName(String newTournamentName) {
+        this.newTournamentName = newTournamentName;
+    }
+
+    public String getNewStartDate() {
+        return newStartDate;
+    }
+
+    public void setNewStartDate(String newStartDate) {
+        this.newStartDate = newStartDate;
+    }
+
+    public String getNewEndDate() {
+        return newEndDate;
+    }
+
+    public void setNewEndDate(String newEndDate) {
+        this.newEndDate = newEndDate;
+    }
+
+    public String getNewLocation() {
+        return newLocation;
+    }
+
+    public void setNewLocation(String newLocation) {
+        this.newLocation = newLocation;
+    }
+
+	public List<String> getTeamNames() {
+    if (tournament != null && tournament.getTeams() != null) {
+        return tournament.getTeams().stream()
+                         .map(EsportTeam::getTeamName)
+                         .toList();
+    }
+    return List.of(); // Retourne une liste vide si aucune équipe n'est trouvée
 	}
 
-	public void setTournamentName(String tournamentName) {
-		this.tournamentName = tournamentName;
+    public String loadTournamentDetails(Long tournamentId) {
+		tournament = esportService.getTournamentById(tournamentId);
+		if (tournament != null) {
+			return "tournamentDetails.xhtml?faces-redirect=true";
+		}
+		return null;
 	}
 
-	public String getNewTournamentName() {
-		return newTournamentName;
+	public void loadTournamentDetailsFromRequest() {
+		String tournamentIdParam = FacesContext.getCurrentInstance()
+			.getExternalContext()
+			.getRequestParameterMap()
+			.get("tournamentId");
+		if (tournamentIdParam != null) {
+			try {
+				Long tournamentId = Long.valueOf(tournamentIdParam);
+				System.out.println("Received tournamentId: " + tournamentId);
+				tournament = esportService.getTournamentById(tournamentId);
+				if (tournament == null) {
+					System.err.println("No tournament found for ID: " + tournamentId);
+				} else {
+					System.out.println("Tournament loaded: " + tournament.getTournamentName());
+				}
+			} catch (NumberFormatException e) {
+				System.err.println("Invalid tournamentId: " + tournamentIdParam);
+			}
+		} else {
+			System.err.println("tournamentId parameter is missing in the request.");
+		}
 	}
-
-	public void setNewTournamentName(String newTournamentName) {
-		this.newTournamentName = newTournamentName;
-	}
-
-	public String getNewStartDate() {
-		return newStartDate;
-	}
-
-	public void setNewStartDate(String newStartDate) {
-		this.newStartDate = newStartDate;
-	}
-
-	public String getNewEndDate() {
-		return newEndDate;
-	}
-
-	public void setNewEndDate(String newEndDate) {
-		this.newEndDate = newEndDate;
-	}
-
-	public String getNewLocation() {
-		return newLocation;
-	}
-
-	public void setNewLocation(String newLocation) {
-		this.newLocation = newLocation;
-	}
-
-	public double getNewCashPrize() {
-		return newCashPrize;
-	}
-
-	public void setNewCashPrize(double newCashPrize) {
-		this.newCashPrize = newCashPrize;
-	}
-
-	public long getNewBankId() {
-		return newBankId;
-	}
-
-	public void setNewBankId(long newBankId) {
-		this.newBankId = newBankId;
-	}
-    
 }

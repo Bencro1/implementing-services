@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,19 +31,18 @@ public class Tournament {
     }
     
     public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
-    	this.esportTeamList = new ArrayList<>();
-    	
-    	this.tournamentName = tournamentName;
-    	this.startDate = startDate;
-    	this.endDate = endDate;
-    	this.location = location;
-    	this.cashPrize = cashPrize;
-    	this.bankId = bankId;
+        this.esportTeamList = new ArrayList<>();
+        this.tournamentName = tournamentName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.cashPrize = cashPrize;
+        this.bankId = bankId;
     }
     
     // Relations
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EsportTeam> esportTeamList;
     
     @ManyToOne(cascade = CascadeType.ALL)

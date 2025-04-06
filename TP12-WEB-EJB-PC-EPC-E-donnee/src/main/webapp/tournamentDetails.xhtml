@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+>
+  <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+      <h:outputText value="Tournament Details:" style="font-weight: bold" />
+      <br />
+      <h:panelGrid
+        columns="2"
+        rendered="#{not empty TournamentDetailsBean.tournament}"
+      >
+        <h:outputText value="Name:" style="font-weight: bold" />
+        <h:outputText
+          value="#{TournamentDetailsBean.tournament.tournamentName}"
+        />
+
+        <h:outputText value="Start Date:" style="font-weight: bold" />
+        <h:outputText value="#{TournamentDetailsBean.tournament.startDate}" />
+
+        <h:outputText value="End Date:" style="font-weight: bold" />
+        <h:outputText value="#{TournamentDetailsBean.tournament.endDate}" />
+
+        <h:outputText value="Location:" style="font-weight: bold" />
+        <h:outputText value="#{TournamentDetailsBean.tournament.location}" />
+
+        <h:outputText value="Cash Prize:" style="font-weight: bold" />
+        <h:outputText value="#{TournamentDetailsBean.tournament.cashPrize}" />
+
+        <h:outputText value="Game:" style="font-weight: bold" />
+        <h:outputText
+          value="#{TournamentDetailsBean.tournament.game.gameName}"
+        />
+
+        <h:outputText value="Teams:" style="font-weight: bold" />
+        <h:dataTable value="#{TournamentDetailsBean.teamNames}" var="teamName">
+          <h:column>
+            <h:outputText value="#{teamName}" />
+          </h:column>
+        </h:dataTable>
+      </h:panelGrid>
+
+      <h:outputText
+        value="Tournament not found."
+        rendered="#{empty TournamentDetailsBean.tournament}"
+      />
+    </ui:define>
+  </ui:composition>
+  <f:metadata>
+    <f:viewAction
+      action="#{TournamentDetailsBean.loadTournamentDetailsFromRequest}"
+    />
+  </f:metadata>
+</html>
