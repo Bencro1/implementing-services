@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Stateless
@@ -54,7 +55,14 @@ public class EsportServiceBean implements EsportService {
             "FROM Tournament t " +
             "LEFT JOIN t.game g", Object[].class)
             .getResultList();
+        
         System.out.println("Number of tournaments found: " + tournaments.size());
+        
+        // Log each tournament for debugging
+        for (Object[] tournament : tournaments) {
+            System.out.println("Tournament: " + Arrays.toString(tournament));
+        }
+        
         return tournaments;
     }
 

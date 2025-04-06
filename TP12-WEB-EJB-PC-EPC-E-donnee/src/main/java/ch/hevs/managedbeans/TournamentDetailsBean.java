@@ -6,11 +6,13 @@ import ch.hevs.Entitys.Tournament;
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.faces.context.FacesContext;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 @ManagedBean
@@ -20,7 +22,7 @@ public class TournamentDetailsBean implements Serializable {
 
     @Inject
     private EsportService esportService;
-    
+
     private String tournamentName;
     private String newTournamentName;
     private String newStartDate;
@@ -29,7 +31,6 @@ public class TournamentDetailsBean implements Serializable {
 
     private List<Object[]> tournamentDetails;
 
-    // Ajout de la variable tournament
     private Tournament tournament;
 
     @PostConstruct
@@ -40,24 +41,55 @@ public class TournamentDetailsBean implements Serializable {
             tournamentDetails = List.of();
         } else {
             System.out.println("Tournaments loaded: " + tournamentDetails.size());
+            for (Object[] tournament : tournamentDetails) {
+                System.out.println("Tournament: " + Arrays.toString(tournament));
+            }
         }
     }
-    
+
     public void searchTournament() {
         if (tournamentName != null && !tournamentName.trim().isEmpty()) {
             tournamentDetails = esportService.findTournamentByName(tournamentName);
+            if (tournamentDetails == null || tournamentDetails.isEmpty()) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_WARN, "No tournaments found with the given name.", null));
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Please enter a tournament name to search.", null));
         }
+    }
+
+    public void resetSearch() {
+        tournamentDetails = esportService.getAllTournaments();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Search reset successfully.", null));
+    }
+
+    public void createTournament() {
+        try {
+            esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, 500000.0, 123456L);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Tournament created successfully!", null));
+            resetForm();
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to create tournament: " + e.getMessage(), null));
+            e.printStackTrace();
+        }
+    }
+
+    private void resetForm() {
+        newTournamentName = "";
+        newStartDate = "";
+        newEndDate = "";
+        newLocation = "";
     }
 
     public List<Object[]> getTournamentDetails() {
         return tournamentDetails;
     }
-    
-    public void resetSearch() {
-        tournamentDetails = esportService.getAllTournaments();
-    }
-    
-    // Getter et setter pour tournament
+
     public Tournament getTournament() {
         return tournament;
     }
@@ -66,7 +98,6 @@ public class TournamentDetailsBean implements Serializable {
         this.tournament = tournament;
     }
 
-    // Getter et setter existants
     public String getTournamentName() {
         return tournamentName;
     }
@@ -107,28 +138,28 @@ public class TournamentDetailsBean implements Serializable {
         this.newLocation = newLocation;
     }
 
-	public List<String> getTeamNames() {
-    if (tournament != null && tournament.getTeams() != null) {
-        return tournament.getTeams().stream()
-                         .map(EsportTeam::getTeamName)
-                         .toList();
+    public List<String> getTeamNames() {
+        if (tournament != null && tournament.getTeams() != null) {
+            return tournament.getTeams().stream()
+                    .map(EsportTeam::getTeamName)
+                    .toList();
+        }
+        return List.of(); // Retourne une liste vide si aucune équipe n'est trouvée
     }
-    return List.of(); // Retourne une liste vide si aucune équipe n'est trouvée
-	}
 
     public String loadTournamentDetails(Long tournamentId) {
-		tournament = esportService.getTournamentById(tournamentId);
-		if (tournament != null) {
-			return "tournamentDetails.xhtml?faces-redirect=true";
-		}
-		return null;
-	}
+        tournament = esportService.getTournamentById(tournamentId);
+        if (tournament != null) {
+            return "tournamentDetails.xhtml?faces-redirect=true";
+        }
+        return null;
+    }
 
-	public void loadTournamentDetailsFromRequest() {
+    public void loadTournamentDetailsFromRequest() {
         String tournamentIdParam = FacesContext.getCurrentInstance()
-            .getExternalContext()
-            .getRequestParameterMap()
-            .get("tournamentId");
+                .getExternalContext()
+                .getRequestParameterMap()
+                .get("tournamentId");
         if (tournamentIdParam != null) {
             try {
                 Long tournamentId = Long.valueOf(tournamentIdParam);
