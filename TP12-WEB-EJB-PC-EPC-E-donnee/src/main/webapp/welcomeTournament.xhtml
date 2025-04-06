@@ -7,11 +7,15 @@
 >
   <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
-      <h:outputLabel value="Best Tournament search platform !" />
+      <h:outputLabel value="Best Tournament search platform !"></h:outputLabel>
       <br />
       <h:form>
         <h:commandLink action="searchQuery">
-          <h:outputLabel value="Search for tournaments" />
+          <h:outputLabel value="Search for tournaments"></h:outputLabel>
+        </h:commandLink>
+        <br />
+        <h:commandLink action="searchTeams">
+          <h:outputLabel value="Search for teams"></h:outputLabel>
         </h:commandLink>
       </h:form>
       <br />
