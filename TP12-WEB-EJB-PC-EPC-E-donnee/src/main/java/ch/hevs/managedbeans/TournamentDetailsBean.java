@@ -40,7 +40,6 @@ public class TournamentDetailsBean implements Serializable {
     	if (tournamentName != null && !tournamentName.trim().isEmpty()) {
             tournamentDetails = esportService.findTournamentByName(tournamentName);
         }
-    	System.out.println("test");
     }
 
     public List<Object[]> getTournamentDetails() {
@@ -52,16 +51,14 @@ public class TournamentDetailsBean implements Serializable {
     }
     
     public String createTournament() {
-    	try {
-    /*	System.out.println("Tournament Name: " + newTournamentName);
-        System.out.println("Start Date: " + newStartDate);
-        System.out.println("End Date: " + newEndDate);
-        System.out.println("Location: " + newLocation);
-    	esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, newCashPrize, newBankId);
-    	return null;	*/
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+    	esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, newCashPrize, newBankId);	
+    	
+    	newTournamentName = "";
+    	newStartDate = "";
+    	newEndDate = "";
+    	newLocation = "";
+    	newCashPrize = 0;
+    	newBankId = 0;
     	
     	return "confirmationTournamentCreation";
     }

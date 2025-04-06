@@ -27,7 +27,6 @@ public class Tournament {
     
     public Tournament() {
     	this.esportTeamList = new ArrayList<>();
-    	System.out.println("espor teams works: " + esportTeamList);
     }
     
     public Tournament(String tournamentName, String startDate, String endDate, String location, double cashPrize, long bankId) {
