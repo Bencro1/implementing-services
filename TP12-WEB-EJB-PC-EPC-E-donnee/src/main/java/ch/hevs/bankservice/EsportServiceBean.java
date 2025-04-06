@@ -48,13 +48,13 @@ public class EsportServiceBean implements EsportService {
     }
 
     @Override
-	public List<Object[]> getAllTournaments() {
-    	return em.createQuery(
-                "SELECT t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
-                "FROM Tournament t " +
-                "LEFT JOIN t.game g ", Object[].class)
-                .getResultList();
-	}
+public List<Object[]> getAllTournaments() {
+    return em.createQuery(
+        "SELECT t.id, t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
+        "FROM Tournament t " +
+        "LEFT JOIN t.game g", Object[].class)
+        .getResultList();
+}
 
 	@Override
     public List<Object[]> getTournamentsWithDetails() {
@@ -85,5 +85,15 @@ public class EsportServiceBean implements EsportService {
     @Override
     public void addCoach(Coach coach) {
         em.persist(coach);
+    }
+    
+    @Override
+    public Tournament getTournamentById(Long id) {
+        System.out.println("Searching for tournament with ID: " + id);
+        Tournament tournament = em.find(Tournament.class, id);
+        if (tournament == null) {
+            System.err.println("Tournament not found for ID: " + id);
+        }
+        return tournament;
     }
 }

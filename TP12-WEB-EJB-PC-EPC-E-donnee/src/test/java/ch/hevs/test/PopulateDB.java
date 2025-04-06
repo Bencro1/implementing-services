@@ -56,6 +56,9 @@ public class PopulateDB extends TestCase {
 			Tournament t2 = new Tournament("LFI", "2025-06-18", "2025-08-14", 
 			    "Rue du chignon, Paris 44000", 1000000.0, 666666L);
 			
+				Tournament persistedTournament = em.find(Tournament.class, t1.getId());
+				System.out.println("Retrieved Tournament: " + persistedTournament.getTournamentName());
+
 			// Player creation
 			Player p1 = new Player("Lee", "Sang-hyeok", "South-Korea", 28, false);
 			Player p2 = new Player("Moon", "Hyeon-jun", "South-Korea", 22, false);
@@ -73,12 +76,22 @@ public class PopulateDB extends TestCase {
 			t1.setTeams(teams);
 			team1.addTournament(t1);
 			team2.addTournament(t1);
+
+			t2.setGame(g2);
+			g2.addTournament(t2);
+
+			t2.setTeams(teams);
+			team1.addTournament(t2);
+			team2.addTournament(t2);
 			
 			em.persist(team1);
 			em.persist(team2);
 			
 			em.persist(t1);
+			System.out.println("Persisted Tournament 1 ID: " + t1.getId());
+
 			em.persist(t2);
+			System.out.println("Persisted Tournament 2 ID: " + t2.getId());
 			
 			em.persist(g1);
 			em.persist(g2);
