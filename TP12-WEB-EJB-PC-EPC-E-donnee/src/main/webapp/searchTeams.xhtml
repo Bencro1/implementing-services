@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+>
+  <h:head>
+    <title>Search Teams</title>
+    <h:outputStylesheet name="style.css" library="css" />
+  </h:head>
+  <h:body>
+    <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+      <ui:define name="content">
+        <!-- Section for displaying messages -->
+        <h:messages globalOnly="true" style="color: red" />
+
+        <!-- Search form -->
+        <h:form>
+        	<h:panelGrid columns="2">
+        		<h:outputText value="Write Team name:"></h:outputText>
+        		<h:inputText value="#{EsportTeamBean.teamName}"></h:inputText>
+        	</h:panelGrid>
+        	
+        	<h:commandButton
+        		value ="Search"
+        		action="#{EsportTeamBean.searchTeam}">
+        	</h:commandButton>
+        	<h:commandButton
+        		value="Reset"
+        		action="#{EsportTeamBean.resetSearch}"></h:commandButton>
+        </h:form>
+        
+        <!-- Table dispalying teams details -->
+        <h:dataTable
+        	value="#{EsportTeamBean.teams}"
+        	var="team"
+        	styleClass="ma-table">
+        	<h:column>
+        		<f:facet name="header">Team Name</f:facet>
+        		<h:outputLink target="_blank">
+        		 	<f:param name="teamId" value="#{team[0]}"></f:param>
+        			#{team[1]}
+        		</h:outputLink>
+        	</h:column>
+        	<h:column>
+        		<f:facet name="header">Sponsor</f:facet>
+        		#{team[2]}
+        	</h:column>
+        </h:dataTable>
+        </ui:define>
+    </ui:composition>
+  </h:body>
+</html>
