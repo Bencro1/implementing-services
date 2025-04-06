@@ -35,8 +35,11 @@ public class TournamentDetailsBean implements Serializable {
     @PostConstruct
     public void init() {
         tournamentDetails = esportService.getAllTournaments();
-        if (tournamentDetails == null) {
+        if (tournamentDetails == null || tournamentDetails.isEmpty()) {
+            System.out.println("No tournaments found.");
             tournamentDetails = List.of();
+        } else {
+            System.out.println("Tournaments loaded: " + tournamentDetails.size());
         }
     }
     
@@ -122,25 +125,17 @@ public class TournamentDetailsBean implements Serializable {
 	}
 
 	public void loadTournamentDetailsFromRequest() {
-		String tournamentIdParam = FacesContext.getCurrentInstance()
-			.getExternalContext()
-			.getRequestParameterMap()
-			.get("tournamentId");
-		if (tournamentIdParam != null) {
-			try {
-				Long tournamentId = Long.valueOf(tournamentIdParam);
-				System.out.println("Received tournamentId: " + tournamentId);
-				tournament = esportService.getTournamentById(tournamentId);
-				if (tournament == null) {
-					System.err.println("No tournament found for ID: " + tournamentId);
-				} else {
-					System.out.println("Tournament loaded: " + tournament.getTournamentName());
-				}
-			} catch (NumberFormatException e) {
-				System.err.println("Invalid tournamentId: " + tournamentIdParam);
-			}
-		} else {
-			System.err.println("tournamentId parameter is missing in the request.");
-		}
-	}
+        String tournamentIdParam = FacesContext.getCurrentInstance()
+            .getExternalContext()
+            .getRequestParameterMap()
+            .get("tournamentId");
+        if (tournamentIdParam != null) {
+            try {
+                Long tournamentId = Long.valueOf(tournamentIdParam);
+                tournament = esportService.getTournamentById(tournamentId);
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid tournamentId: " + tournamentIdParam);
+            }
+        }
+    }
 }

@@ -86,6 +86,7 @@ public class PopulateDB extends TestCase {
 			
 			em.persist(team1);
 			em.persist(team2);
+			em.flush();
 			
 			em.persist(t1);
 			System.out.println("Persisted Tournament 1 ID: " + t1.getId());
