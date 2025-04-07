@@ -31,12 +31,12 @@ public class EsportTeam {
     }
 
     // Relations
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "coach_id")
-    private Coach coach; // Relation avec Coach
+
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = false)
+    @JoinColumn(name = "coach_id", unique = true)
+    private Coach coach;
     
     @ManyToMany(mappedBy="esportTeamList", cascade = CascadeType.ALL)
     private List<Tournament> tournamentList;
