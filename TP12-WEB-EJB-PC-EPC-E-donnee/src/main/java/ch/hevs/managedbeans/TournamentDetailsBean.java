@@ -2,6 +2,7 @@ package ch.hevs.managedbeans;
 
 import ch.hevs.bankservice.EsportService;
 import ch.hevs.Entitys.EsportTeam;
+import ch.hevs.Entitys.Game;
 import ch.hevs.Entitys.Tournament;
 import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
@@ -12,6 +13,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +32,11 @@ public class TournamentDetailsBean implements Serializable {
     private String newLocation;
     private double newCashPrize;
     private Long newBankId;
+    
+    private Long selectedGameId;
+    private List<Game> allGames;
+    private List<Long> selectedTeamIds;
+    private List<EsportTeam> allTeams;
 
     private List<Object[]> tournamentDetails;
 
@@ -38,6 +45,10 @@ public class TournamentDetailsBean implements Serializable {
     @PostConstruct
     public void init() {
         tournamentDetails = esportService.getAllTournaments();
+        allGames = esportService.getAllGames();
+        allTeams = esportService.getAllTeams();
+        selectedTeamIds = new ArrayList<>();
+        
         if (tournamentDetails == null || tournamentDetails.isEmpty()) {
             System.out.println("No tournaments found.");
             tournamentDetails = List.of();
@@ -70,7 +81,7 @@ public class TournamentDetailsBean implements Serializable {
 
     public void createTournament() {
         try {
-            esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, newCashPrize, newBankId);
+            esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, newCashPrize, newBankId, selectedGameId, selectedTeamIds);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Tournament created successfully!", null));
             resetForm();
@@ -86,6 +97,9 @@ public class TournamentDetailsBean implements Serializable {
         newStartDate = "";
         newEndDate = "";
         newLocation = "";
+        newCashPrize = 0;
+        newBankId = 0L;
+        selectedTeamIds = new ArrayList<>();
     }
     
     public String loadTournamentDetails(Long tournamentId) {
@@ -110,6 +124,16 @@ public class TournamentDetailsBean implements Serializable {
             }
         }
     }
+    
+  /*  public void addTeamsToTournament(Long tournamentId) {
+    	try {
+    		esportService.addTeams(tournamentId, selectedTeamIds);
+    	} catch (Exception e) {
+    		FacesContext.getCurrentInstance().addMessage(null, 
+    				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to add teams: " + e.getMessage(), null));
+    		e.printStackTrace();
+    	}
+    }	*/
     
     // Getters and Setters
 
@@ -188,5 +212,37 @@ public class TournamentDetailsBean implements Serializable {
 
 	public void setNewBankId(Long newBankId) {
 		this.newBankId = newBankId;
+	}
+
+	public Long getSelectedGameId() {
+		return selectedGameId;
+	}
+
+	public void setSelectedGameId(Long selectedGameId) {
+		this.selectedGameId = selectedGameId;
+	}
+
+	public List<Game> getAllGames() {
+		return allGames;
+	}
+
+	public void setAllGames(List<Game> allGames) {
+		this.allGames = allGames;
+	}
+
+	public List<Long> getSelectedTeamIds() {
+		return selectedTeamIds;
+	}
+
+	public void setSelectedTeamIds(List<Long> selectedTeamIds) {
+		this.selectedTeamIds = selectedTeamIds;
+	}
+
+	public List<EsportTeam> getAllTeams() {
+		return allTeams;
+	}
+
+	public void setAllTeams(List<EsportTeam> allTeams) {
+		this.allTeams = allTeams;
 	}
 }

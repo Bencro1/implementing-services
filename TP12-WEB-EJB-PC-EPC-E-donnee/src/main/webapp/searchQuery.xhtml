@@ -55,6 +55,18 @@
             
             <h:outputText value="Bank ID:"></h:outputText>
             <h:inputText value="#{TournamentDetailsBean.newBankId}"></h:inputText>
+            
+            <h:outputText value="Game:"></h:outputText>
+            <h:selectOneMenu value="#{TournamentDetailsBean.selectedGameId}">
+            	<f:selectItems value="#{TournamentDetailsBean.allGames}" var="game"
+            				itemValue="#{game.idNumber}" itemLabel="#{game.gameName}"></f:selectItems>
+            </h:selectOneMenu>
+            
+            <h:outputText value="Select Teams:"/>
+            <h:selectManyCheckbox value="#{TournamentDetailsBean.selectedTeamIds}">
+            	<f:selectItems value="#{TournamentDetailsBean.allTeams}" var="team"
+            					itemValue="#{team.id}" itemLabel="#{team.teamName}"/>
+            </h:selectManyCheckbox>
           </h:panelGrid>
 
           <h:commandButton

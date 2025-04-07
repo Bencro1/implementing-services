@@ -11,9 +11,10 @@ import java.util.List;
 
 @Local
 public interface EsportService {
-    void addTeam(EsportTeam team);
-    void addTournament(String newTournamentName, String newStartDate, String newEndDate, String newLocation, double cashPrize, long bankId);
-    void addGame(Game game);
+  //  void addTeams(Long tournamentId, List<Long> teamIds);
+    List<EsportTeam> getTeamsByIds(List<Long> teamIds);
+    void addTournament(String newTournamentName, String newStartDate, String newEndDate, String newLocation, double cashPrize, long bankId, Long gameId, List<Long> teamsIds);
+  //  void addGame(Game game);
     List<Object[]> findTournamentByName(String tournamentName);
     List<EsportTeam> getAllTeams();
     List<Object[]> getAllTournaments();
