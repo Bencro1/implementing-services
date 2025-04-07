@@ -39,4 +39,15 @@ public class TeamServiceBean implements TeamService {
 				.getResultList();
 	}
 	
+	@Override
+	public void addTeam(String newTeamName, String newSponsor, double newSalary, long newBankId) {
+		EsportTeam team = new EsportTeam();
+		team.setTeamName(newTeamName);
+		team.setSponsor(newSponsor);
+		team.setSalary(newSalary);
+		team.setBankId(newBankId);
+		
+		em.persist(team);
+	}
+	
 }

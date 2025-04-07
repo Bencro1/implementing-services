@@ -24,6 +24,10 @@ public class EsportTeamBean implements Serializable {
     private TeamService teamService;
 
 	private String teamName;
+	private String newTeamName;
+	private String newSponsor;
+	private double newSalary;
+	private Long newBankId;
 	
     private EsportTeam team = new EsportTeam();
     private List<Object[]> teams;
@@ -60,6 +64,26 @@ public class EsportTeamBean implements Serializable {
     	FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Search reset successfully.", null));
     }
+    
+    public void createTeam() {
+    	try {
+    		teamService.addTeam(newTeamName, newSponsor, newSalary, newBankId);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Team created successfully!", null));
+            resetForm();
+    	} catch (Exception e) {
+    		FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to create new team: " + e.getMessage(), null));
+            e.printStackTrace();
+    	}
+    }
+    
+    private void resetForm() {
+    	newTeamName = "";
+    	newSponsor = "";
+    	newSalary = 0;
+    	newBankId = 0L;
+    }
 
   /*  public void addTeam() {
         esportService.addTeam(team);
@@ -91,6 +115,38 @@ public class EsportTeamBean implements Serializable {
 
 	public void setTeams(List<Object[]> teams) {
 		this.teams = teams;
+	}
+
+	public String getNewTeamName() {
+		return newTeamName;
+	}
+
+	public void setNewTeamName(String newTeamName) {
+		this.newTeamName = newTeamName;
+	}
+
+	public String getNewSponsor() {
+		return newSponsor;
+	}
+
+	public void setNewSponsor(String newSponsor) {
+		this.newSponsor = newSponsor;
+	}
+
+	public double getNewSalary() {
+		return newSalary;
+	}
+
+	public void setNewSalary(double newSalary) {
+		this.newSalary = newSalary;
+	}
+
+	public Long getNewBankId() {
+		return newBankId;
+	}
+
+	public void setNewBankId(Long newBankId) {
+		this.newBankId = newBankId;
 	}
     
     

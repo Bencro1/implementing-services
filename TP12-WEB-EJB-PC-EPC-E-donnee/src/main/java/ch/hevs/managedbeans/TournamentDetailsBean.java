@@ -28,6 +28,8 @@ public class TournamentDetailsBean implements Serializable {
     private String newStartDate;
     private String newEndDate;
     private String newLocation;
+    private double newCashPrize;
+    private Long newBankId;
 
     private List<Object[]> tournamentDetails;
 
@@ -68,7 +70,7 @@ public class TournamentDetailsBean implements Serializable {
 
     public void createTournament() {
         try {
-            esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, 500000.0, 123456L);
+            esportService.addTournament(newTournamentName, newStartDate, newEndDate, newLocation, newCashPrize, newBankId);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Tournament created successfully!", null));
             resetForm();
@@ -85,6 +87,31 @@ public class TournamentDetailsBean implements Serializable {
         newEndDate = "";
         newLocation = "";
     }
+    
+    public String loadTournamentDetails(Long tournamentId) {
+        tournament = esportService.getTournamentById(tournamentId);
+        if (tournament != null) {
+            return "tournamentDetails.xhtml?faces-redirect=true";
+        }
+        return null;
+    }
+
+    public void loadTournamentDetailsFromRequest() {
+        String tournamentIdParam = FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequestParameterMap()
+                .get("tournamentId");
+        if (tournamentIdParam != null) {
+            try {
+                Long tournamentId = Long.valueOf(tournamentIdParam);
+                tournament = esportService.getTournamentById(tournamentId);
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid tournamentId: " + tournamentIdParam);
+            }
+        }
+    }
+    
+    // Getters and Setters
 
     public List<Object[]> getTournamentDetails() {
         return tournamentDetails;
@@ -147,26 +174,19 @@ public class TournamentDetailsBean implements Serializable {
         return List.of(); // Retourne une liste vide si aucune équipe n'est trouvée
     }
 
-    public String loadTournamentDetails(Long tournamentId) {
-        tournament = esportService.getTournamentById(tournamentId);
-        if (tournament != null) {
-            return "tournamentDetails.xhtml?faces-redirect=true";
-        }
-        return null;
-    }
+	public double getNewCashPrize() {
+		return newCashPrize;
+	}
 
-    public void loadTournamentDetailsFromRequest() {
-        String tournamentIdParam = FacesContext.getCurrentInstance()
-                .getExternalContext()
-                .getRequestParameterMap()
-                .get("tournamentId");
-        if (tournamentIdParam != null) {
-            try {
-                Long tournamentId = Long.valueOf(tournamentIdParam);
-                tournament = esportService.getTournamentById(tournamentId);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid tournamentId: " + tournamentIdParam);
-            }
-        }
-    }
+	public void setNewCashPrize(double newCashPrize) {
+		this.newCashPrize = newCashPrize;
+	}
+
+	public Long getNewBankId() {
+		return newBankId;
+	}
+
+	public void setNewBankId(Long newBankId) {
+		this.newBankId = newBankId;
+	}
 }

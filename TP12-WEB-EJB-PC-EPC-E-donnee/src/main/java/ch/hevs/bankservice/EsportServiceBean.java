@@ -79,7 +79,7 @@ public class EsportServiceBean implements EsportService {
     @Override
     public List<Object[]> findTournamentByName(String tournamentName) {
         return em.createQuery(
-            "SELECT t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
+            "SELECT t.id, t.tournamentName, t.startDate, t.endDate, t.location, g.gameName " +
             "FROM Tournament t " +
             "LEFT JOIN t.game g " +
             "WHERE LOWER(t.tournamentName) LIKE LOWER(:name)", Object[].class)
