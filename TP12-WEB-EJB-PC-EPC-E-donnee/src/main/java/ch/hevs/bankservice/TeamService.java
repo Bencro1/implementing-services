@@ -9,4 +9,5 @@ import jakarta.ejb.Local;
 public interface TeamService {
 	List<Object[]> getAllTeams();
 	List<Object[]> findTeamByName(String TeamName);
+	void addTeam(String newTeamName, String newSponsor, double newSalary, long newBankId);
 }

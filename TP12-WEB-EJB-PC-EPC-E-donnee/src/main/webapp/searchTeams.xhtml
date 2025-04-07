@@ -32,6 +32,26 @@
         		action="#{EsportTeamBean.resetSearch}"></h:commandButton>
         </h:form>
         
+        <!-- Form to add esport team (visible only to organizers) -->
+        <h:form rendered="#{request.isUserInRole('organizer')}">
+        	<h:panelGrid columns="2">
+        		<h:outputText value="Team name:"></h:outputText>
+        		<h:inputText value="#{EsportTeamBean.newTeamName}"></h:inputText>
+        		
+        		<h:outputText value="Sponsor name:"></h:outputText>
+        		<h:inputText value="#{EsportTeamBean.newSponsor}"></h:inputText>
+        		
+        		<h:outputText value="Salary:"></h:outputText>
+        		<h:inputText value="#{EsportTeamBean.newSalary}"></h:inputText>
+        		
+        		<h:outputText value="Bank ID:"></h:outputText>
+        		<h:inputText value="#{EsportTeamBean.newBankId}"></h:inputText>
+        	</h:panelGrid>
+        	<h:commandButton
+        		value="Add Team"
+        		action="#{EsportTeamBean.createTeam}"></h:commandButton>
+        </h:form>
+        
         <!-- Table dispalying teams details -->
         <h:dataTable
         	value="#{EsportTeamBean.teams}"
