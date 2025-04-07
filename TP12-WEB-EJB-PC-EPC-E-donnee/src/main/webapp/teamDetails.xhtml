@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+>
+  <h:head>
+    <title>Team Details</title>
+  </h:head>
+  <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+      <!-- Team Details Section -->
+      <h:outputText value="Team Details:" style="font-weight: bold" />
+      <br />
+      <h:panelGrid columns="2" rendered="#{EsportTeamBean.team != null}">
+        <h:outputText value="Team Name:" style="font-weight: bold" />
+        <h:outputText value="#{EsportTeamBean.team.teamName}" />
+
+        <h:outputText value="Sponsor:" style="font-weight: bold" />
+        <h:outputText value="#{EsportTeamBean.team.sponsor}" />
+
+        <h:outputText value="Salary:" style="font-weight: bold" />
+        <h:outputText value="#{EsportTeamBean.team.salary}" />
+
+        <h:outputText value="Bank ID:" style="font-weight: bold" />
+        <h:outputText value="#{EsportTeamBean.team.bankId}" />
+
+        <h:outputText value="Coach:" style="font-weight: bold" />
+        <h:outputText
+          value="#{EsportTeamBean.team.coach.firstname} #{EsportTeamBean.team.coach.lastname}"
+          rendered="#{EsportTeamBean.team.coach != null}"
+        />
+        <h:outputText
+          value="No coach assigned"
+          rendered="#{EsportTeamBean.team.coach == null}"
+        />
+
+        <h:outputText value="Players:" style="font-weight: bold" />
+        <h:dataTable
+          value="#{EsportTeamBean.team.playerList}"
+          var="player"
+          styleClass="ma-table"
+        >
+          <h:column>
+            #{player.firstname} #{player.lastname} (#{player.age} years old,
+            Injured: #{player.injured ? 'Yes' : 'No'})
+          </h:column>
+        </h:dataTable>
+      </h:panelGrid>
+
+      <!-- Add Player Section -->
+      <h:outputText
+        value="Add Existing Player to Team:"
+        style="font-weight: bold"
+      />
+      <h:form>
+        <h:panelGrid columns="2">
+          <h:outputText value="Select Player:" />
+          <h:selectOneMenu value="#{EsportTeamBean.selectedPlayerId}">
+            <f:selectItems
+              value="#{EsportTeamBean.unassignedPlayers}"
+              var="player"
+              itemValue="#{player.idNumber}"
+              itemLabel="#{player.firstname} #{player.lastname}"
+            />
+          </h:selectOneMenu>
+        </h:panelGrid>
+        <h:commandButton
+          value="Add Player"
+          action="#{EsportTeamBean.addPlayerToTeam}"
+        />
+      </h:form>
+
+      <br />
+
+      <!-- Add Coach Section -->
+      <h:outputText
+        value="Add Existing Coach to Team:"
+        style="font-weight: bold"
+        rendered="#{EsportTeamBean.team.coach == null}"
+      />
+      <h:form rendered="#{EsportTeamBean.team.coach == null}">
+        <h:panelGrid columns="2">
+          <h:outputText value="Select Coach:" />
+          <h:selectOneMenu value="#{EsportTeamBean.selectedCoachId}">
+            <f:selectItems
+              value="#{EsportTeamBean.unassignedCoaches}"
+              var="coach"
+              itemValue="#{coach.idNumber}"
+              itemLabel="#{coach.firstname} #{coach.lastname}"
+            />
+          </h:selectOneMenu>
+        </h:panelGrid>
+        <h:commandButton
+          value="Add Coach"
+          action="#{EsportTeamBean.addCoachToTeam}"
+        />
+      </h:form>
+
+      <h:outputText
+        value="Team not found."
+        rendered="#{EsportTeamBean.team == null}"
+      />
+    </ui:define>
+  </ui:composition>
+  <f:metadata>
+    <f:viewAction action="#{EsportTeamBean.loadTeamDetailsFromRequest}" />
+  </f:metadata>
+</html>

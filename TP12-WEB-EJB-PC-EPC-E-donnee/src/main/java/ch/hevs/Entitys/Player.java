@@ -28,9 +28,9 @@ public class Player extends Person {
     	this.injured = injured;
     }
     
-    @ManyToOne(cascade = CascadeType.ALL)
-   // @JoinColumn(name = "team_id")
-    private EsportTeam team;	// Relation with EsportTeam
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private EsportTeam team;
 
     // Getters and Setters
     public int getAge() {
@@ -46,7 +46,10 @@ public class Player extends Person {
     }
     
     public void setTeam(EsportTeam team) {
-    	this.team = team;
+        this.team = team;
+        if (team != null && !team.getPlayerList().contains(this)) {
+            team.getPlayerList().add(this);
+        }
     }
 
     public boolean isInjured() {

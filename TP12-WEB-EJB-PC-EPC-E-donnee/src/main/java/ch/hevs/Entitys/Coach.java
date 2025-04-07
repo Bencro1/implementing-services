@@ -27,8 +27,8 @@ public class Coach extends Person {
     
     // Relations
     
-    @OneToOne(mappedBy="coach", cascade = CascadeType.ALL)
-    private EsportTeam team;	//relation with EsportTeam
+    @OneToOne(mappedBy = "coach", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private EsportTeam team;
 
     // Getters and Setters
     public int getYearsOfExperience() {
@@ -44,6 +44,6 @@ public class Coach extends Person {
     }
     
     public void setTeam(EsportTeam team) {
-    	this.team = team;
+        this.team = team;
     }
 }

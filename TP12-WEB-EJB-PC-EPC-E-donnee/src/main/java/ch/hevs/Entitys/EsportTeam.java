@@ -31,12 +31,12 @@ public class EsportTeam {
     }
 
     // Relations
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<Player> playerList;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "coach_id")
-    private Coach coach; // Relation avec Coach
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Player> playerList = new ArrayList<>();    
+
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    @JoinColumn(name = "coach_id", unique = true)
+    private Coach coach;
     
     @ManyToMany(mappedBy="esportTeamList", cascade = CascadeType.ALL)
     private List<Tournament> tournamentList;
@@ -88,6 +88,9 @@ public class EsportTeam {
 
     public void setCoach(Coach coach) {
         this.coach = coach;
+        if (coach != null) {
+            coach.setTeam(this);
+        }
     }
 
     public double getSalary() {
@@ -110,5 +113,10 @@ public class EsportTeam {
     
     public void addTournament(Tournament tournament) {
     	this.tournamentList.add(tournament);
+    }
+
+    public void addPlayer(Player player) {
+        playerList.add(player);
+        player.setTeam(this);
     }
 }
