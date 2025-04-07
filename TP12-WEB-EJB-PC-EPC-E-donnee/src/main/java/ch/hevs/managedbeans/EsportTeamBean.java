@@ -148,11 +148,10 @@ public class EsportTeamBean implements Serializable {
 					return;
 				}
 	
-				player.setTeam(team);
-				team.getPlayerList().add(player);
-				teamService.updatePlayer(player);
+				team.addPlayer(player); // Synchronise les deux côtés de la relation
+				teamService.updateTeam(team); // Persiste l'équipe
+				teamService.updatePlayer(player); // Persiste le joueur
 	
-				// Rafraîchissez la liste des équipes
 				refreshTeams();
 	
 				FacesContext.getCurrentInstance().addMessage(null,
@@ -180,18 +179,17 @@ public class EsportTeamBean implements Serializable {
 					return;
 				}
 	
-				if (coach.getTeam() != null) {
-					// Dissociez le coach de son équipe actuelle
-					EsportTeam previousTeam = coach.getTeam();
-					previousTeam.setCoach(null);
-					teamService.updateTeam(previousTeam);
+				if (coach.getTeam() != null && !coach.getTeam().equals(team)) {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_WARN, "This coach is already assigned to another team.", null));
+					return;
 				}
 	
 				coach.setTeam(team);
 				team.setCoach(coach);
 				teamService.updateCoach(coach);
+				teamService.updateTeam(team);
 	
-				// Rafraîchissez la liste des équipes
 				refreshTeams();
 	
 				FacesContext.getCurrentInstance().addMessage(null,
@@ -250,6 +248,18 @@ public class EsportTeamBean implements Serializable {
 		playerNationality = "";
 		playerAge = 0;
 		playerInjured = false;
+	}
+
+	public List<Player> getUnassignedPlayers() {
+		return existingPlayers.stream()
+							  .filter(player -> player.getTeam() == null)
+							  .toList();
+	}
+	
+	public List<Coach> getUnassignedCoaches() {
+		return existingCoaches.stream()
+							  .filter(coach -> coach.getTeam() == null)
+							  .toList();
 	}
     
     // Getters and setters

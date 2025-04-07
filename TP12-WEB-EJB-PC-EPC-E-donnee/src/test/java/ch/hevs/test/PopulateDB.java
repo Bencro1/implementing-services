@@ -15,17 +15,15 @@ import junit.framework.TestCase;
 
 public class PopulateDB extends TestCase {
 
-    @Test
-    public void test() throws SQLException, ClassNotFoundException {
+@Test
+public void test() throws SQLException, ClassNotFoundException {
+    EntityTransaction tx = null;
+    try {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU_unitTest");
+        EntityManager em = emf.createEntityManager();
 
-        EntityTransaction tx = null;
-        try {
-            // Initialisation de l'EntityManager
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU_unitTest");
-			EntityManager em = emf.createEntityManager();
-
-            tx = em.getTransaction();
-            tx.begin();
+        tx = em.getTransaction();
+        tx.begin();
 
             // Création des entités de base
             System.out.println("Starting database population...");

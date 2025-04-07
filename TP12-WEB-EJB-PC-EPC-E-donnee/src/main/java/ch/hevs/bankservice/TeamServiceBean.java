@@ -112,5 +112,6 @@ public class TeamServiceBean implements TeamService {
 			throw new IllegalArgumentException("Cannot update a team without an ID.");
 		}
 		em.merge(team);
+		em.flush(); // Force la synchronisation avec la base de données
 	}
 }

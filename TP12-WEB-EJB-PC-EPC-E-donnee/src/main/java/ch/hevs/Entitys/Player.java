@@ -46,7 +46,10 @@ public class Player extends Person {
     }
     
     public void setTeam(EsportTeam team) {
-    	this.team = team;
+        this.team = team;
+        if (team != null && !team.getPlayerList().contains(this)) {
+            team.getPlayerList().add(this);
+        }
     }
 
     public boolean isInjured() {

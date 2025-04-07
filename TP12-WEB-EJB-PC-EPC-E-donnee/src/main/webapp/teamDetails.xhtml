@@ -6,8 +6,12 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
 >
+  <h:head>
+    <title>Team Details</title>
+  </h:head>
   <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
+      <!-- Team Details Section -->
       <h:outputText value="Team Details:" style="font-weight: bold" />
       <br />
       <h:panelGrid columns="2" rendered="#{EsportTeamBean.team != null}">
@@ -26,6 +30,11 @@
         <h:outputText value="Coach:" style="font-weight: bold" />
         <h:outputText
           value="#{EsportTeamBean.team.coach.firstname} #{EsportTeamBean.team.coach.lastname}"
+          rendered="#{EsportTeamBean.team.coach != null}"
+        />
+        <h:outputText
+          value="No coach assigned"
+          rendered="#{EsportTeamBean.team.coach == null}"
         />
 
         <h:outputText value="Players:" style="font-weight: bold" />
@@ -41,6 +50,7 @@
         </h:dataTable>
       </h:panelGrid>
 
+      <!-- Add Player Section -->
       <h:outputText
         value="Add Existing Player to Team:"
         style="font-weight: bold"
@@ -50,7 +60,7 @@
           <h:outputText value="Select Player:" />
           <h:selectOneMenu value="#{EsportTeamBean.selectedPlayerId}">
             <f:selectItems
-              value="#{EsportTeamBean.existingPlayers}"
+              value="#{EsportTeamBean.unassignedPlayers}"
               var="player"
               itemValue="#{player.idNumber}"
               itemLabel="#{player.firstname} #{player.lastname}"
@@ -63,16 +73,20 @@
         />
       </h:form>
 
+      <br />
+
+      <!-- Add Coach Section -->
       <h:outputText
         value="Add Existing Coach to Team:"
         style="font-weight: bold"
+        rendered="#{EsportTeamBean.team.coach == null}"
       />
-      <h:form>
+      <h:form rendered="#{EsportTeamBean.team.coach == null}">
         <h:panelGrid columns="2">
           <h:outputText value="Select Coach:" />
           <h:selectOneMenu value="#{EsportTeamBean.selectedCoachId}">
             <f:selectItems
-              value="#{EsportTeamBean.existingCoaches}"
+              value="#{EsportTeamBean.unassignedCoaches}"
               var="coach"
               itemValue="#{coach.idNumber}"
               itemLabel="#{coach.firstname} #{coach.lastname}"

@@ -44,6 +44,6 @@ public class Coach extends Person {
     }
     
     public void setTeam(EsportTeam team) {
-    	this.team = team;
+        this.team = team;
     }
 }
