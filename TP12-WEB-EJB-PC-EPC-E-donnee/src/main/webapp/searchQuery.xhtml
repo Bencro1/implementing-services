@@ -15,6 +15,12 @@
       <ui:define name="content">
         <!-- Section for displaying messages -->
         <h:messages globalOnly="true" style="color: red" />
+        
+        <h:form>
+        <h:commandLink action="welcomeTournament">
+        	<h:outputLabel value="Go back"></h:outputLabel>
+        </h:commandLink>
+        </h:form>
 
         <!-- Search form -->
         <h:form>
@@ -84,8 +90,8 @@
           styleClass="ma-table"
         >
           <h:column>
-            <f:facet name="header">Nom</f:facet>
-            <h:outputLink value="tournamentDetails.xhtml" target="_blank">
+            <f:facet name="header">Name</f:facet>
+            <h:outputLink value="tournamentDetails.xhtml">
               <f:param name="tournamentId" value="#{tournament[0]}" />
               #{tournament[1]}
             </h:outputLink>

@@ -16,6 +16,12 @@
         <!-- Section for displaying messages -->
         <h:messages globalOnly="true" style="color: red" />
 
+		<h:form>
+		<h:commandLink action="welcomeTournament">
+        	<h:outputLabel value="Go back"></h:outputLabel>
+        </h:commandLink>
+        </h:form>
+		
         <!-- Search form -->
         <h:form>
           <h:panelGrid columns="2">
@@ -45,56 +51,23 @@
 
             <h:outputText value="Bank ID:"></h:outputText>
             <h:inputText value="#{EsportTeamBean.newBankId}"></h:inputText>
+            
+            <h:outputText value="Coach:"/>
+            <h:selectOneMenu value="#{EsportTeamBean.selectedCoachId}">
+            	<f:selectItems value="#{EsportTeamBean.allCoaches}" var="coach"
+            					itemValue="#{coach.idNumber}" itemLabel="#{coach.firstname}"/>
+            </h:selectOneMenu>
+            
+            <h:outputText value="Select Players:"/>
+            <h:selectManyCheckbox value="#{EsportTeamBean.selectedPlayerIds}">
+            	<f:selectItems value="#{EsportTeamBean.allPlayers}" var="player"
+            					itemValue="#{player.idNumber}" itemLabel="#{player.firstname}"/>
+            </h:selectManyCheckbox>
           </h:panelGrid>
           <h:commandButton
             value="Add Team"
             action="#{EsportTeamBean.createTeam}"
           ></h:commandButton>
-        </h:form>
-
-        <!-- Form to add a coach -->
-        <h:form rendered="#{request.isUserInRole('organizer')}">
-          <h:panelGrid columns="2">
-            <h:outputText value="Coach Firstname:" />
-            <h:inputText value="#{EsportTeamBean.coachFirstname}" />
-
-            <h:outputText value="Coach Lastname:" />
-            <h:inputText value="#{EsportTeamBean.coachLastname}" />
-
-            <h:outputText value="Nationality:" />
-            <h:inputText value="#{EsportTeamBean.coachNationality}" />
-
-            <h:outputText value="Years of Experience:" />
-            <h:inputText value="#{EsportTeamBean.coachExperience}" />
-          </h:panelGrid>
-          <h:commandButton
-            value="Add Coach"
-            action="#{EsportTeamBean.createCoach}"
-          />
-        </h:form>
-
-        <!-- Form to add a player -->
-        <h:form rendered="#{request.isUserInRole('organizer')}">
-          <h:panelGrid columns="2">
-            <h:outputText value="Player Firstname:" />
-            <h:inputText value="#{EsportTeamBean.playerFirstname}" />
-
-            <h:outputText value="Player Lastname:" />
-            <h:inputText value="#{EsportTeamBean.playerLastname}" />
-
-            <h:outputText value="Nationality:" />
-            <h:inputText value="#{EsportTeamBean.playerNationality}" />
-
-            <h:outputText value="Age:" />
-            <h:inputText value="#{EsportTeamBean.playerAge}" />
-
-            <h:outputText value="Injured:" />
-            <h:selectBooleanCheckbox value="#{EsportTeamBean.playerInjured}" />
-          </h:panelGrid>
-          <h:commandButton
-            value="Add Player"
-            action="#{EsportTeamBean.createPlayer}"
-          />
         </h:form>
 
         <!-- Table dispalying teams details -->
@@ -116,59 +89,6 @@
           </h:column>
         </h:dataTable>
 
-        <!-- Table displaying existing players -->
-        <h:outputText value="Existing Players:" style="font-weight: bold" />
-        <h:dataTable
-          value="#{EsportTeamBean.existingPlayers}"
-          var="player"
-          styleClass="ma-table"
-        >
-          <h:column>
-            <f:facet name="header">Firstname</f:facet>
-            #{player.firstname}
-          </h:column>
-          <h:column>
-            <f:facet name="header">Lastname</f:facet>
-            #{player.lastname}
-          </h:column>
-          <h:column>
-            <f:facet name="header">Nationality</f:facet>
-            #{player.nationality}
-          </h:column>
-          <h:column>
-            <f:facet name="header">Age</f:facet>
-            #{player.age}
-          </h:column>
-          <h:column>
-            <f:facet name="header">Injured</f:facet>
-            #{player.injured ? 'Yes' : 'No'}
-          </h:column>
-        </h:dataTable>
-
-        <!-- Table displaying existing coaches -->
-        <h:outputText value="Existing Coaches:" style="font-weight: bold" />
-        <h:dataTable
-          value="#{EsportTeamBean.existingCoaches}"
-          var="coach"
-          styleClass="ma-table"
-        >
-          <h:column>
-            <f:facet name="header">Firstname</f:facet>
-            #{coach.firstname}
-          </h:column>
-          <h:column>
-            <f:facet name="header">Lastname</f:facet>
-            #{coach.lastname}
-          </h:column>
-          <h:column>
-            <f:facet name="header">Nationality</f:facet>
-            #{coach.nationality}
-          </h:column>
-          <h:column>
-            <f:facet name="header">Experience (Years)</f:facet>
-            #{coach.yearsOfExperience}
-          </h:column>
-        </h:dataTable>
       </ui:define>
     </ui:composition>
   </h:body>

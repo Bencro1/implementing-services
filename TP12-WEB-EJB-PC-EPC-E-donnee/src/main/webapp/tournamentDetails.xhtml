@@ -8,6 +8,13 @@
 >
   <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
+    	
+    	<h:form>
+    	<h:commandLink action="searchQuery">
+        	<h:outputLabel value="Go back"></h:outputLabel>
+        </h:commandLink>
+        </h:form>
+    
       <h:outputText value="Tournament Details:" style="font-weight: bold" />
       <br />
       <h:panelGrid

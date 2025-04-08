@@ -44,19 +44,25 @@ public class EsportTeamBean implements Serializable {
 	private String playerNationality;
 	private int playerAge;
 	private boolean playerInjured;
-	private Long selectedPlayerId;
+	private List<Long> selectedPlayerIds;
 
     private EsportTeam team = new EsportTeam();
     private List<Object[]> teams;
 
 	private List<Player> existingPlayers;
 	private List<Coach> existingCoaches;
+	
+	private List<Player> allPlayers;
+	private List<Coach> allCoaches;
 
     @PostConstruct
 	public void init() {
 		teams = teamService.getAllTeams();
 		existingPlayers = teamService.getAllPlayers(); // Fetch all players
 		existingCoaches = teamService.getAllCoaches(); // Fetch all coaches
+		
+		allPlayers = teamService.getAllPlayers();
+		allCoaches = teamService.getAllCoaches();
 		if (teams == null || teams.isEmpty()) {
 			System.out.println("No teams found.");
 			teams = List.of();
@@ -94,7 +100,7 @@ public class EsportTeamBean implements Serializable {
     
     public void createTeam() {
     	try {
-    		teamService.addTeam(newTeamName, newSponsor, newSalary, newBankId);
+    		teamService.addTeam(newTeamName, newSponsor, newSalary, newBankId, selectedCoachId, selectedPlayerIds);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Team created successfully!", null));
             resetForm();
@@ -135,7 +141,7 @@ public class EsportTeamBean implements Serializable {
 		}
 	}
 
-	public void addPlayerToTeam() {
+/*	public void addPlayerToTeam() {
 		if (selectedPlayerId != null && team != null) {
 			Player player = existingPlayers.stream()
 										   .filter(p -> p.getIdNumber().equals(selectedPlayerId))
@@ -164,7 +170,7 @@ public class EsportTeamBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid player or team.", null));
 		}
-	}
+	}	*/
 
 	public void addCoachToTeam() {
 		if (selectedCoachId != null && team != null) {
@@ -401,12 +407,12 @@ public class EsportTeamBean implements Serializable {
 		return existingCoaches;
 	}
 
-	public Long getSelectedPlayerId() {
-		return selectedPlayerId;
+	public List<Long> getSelectedPlayerId() {
+		return selectedPlayerIds;
 	}
 	
-	public void setSelectedPlayerId(Long selectedPlayerId) {
-		this.selectedPlayerId = selectedPlayerId;
+	public void setSelectedPlayerId(List<Long> selectedPlayerIds) {
+		this.selectedPlayerIds = selectedPlayerIds;
 	}
 
 	public Long getSelectedCoachId() {
@@ -415,5 +421,29 @@ public class EsportTeamBean implements Serializable {
 	
 	public void setSelectedCoachId(Long selectedCoachId) {
 		this.selectedCoachId = selectedCoachId;
+	}
+
+	public List<Player> getAllPlayers() {
+		return allPlayers;
+	}
+
+	public void setAllPlayers(List<Player> allPlayers) {
+		this.allPlayers = allPlayers;
+	}
+
+	public List<Coach> getAllCoaches() {
+		return allCoaches;
+	}
+
+	public void setAllCoaches(List<Coach> allCoaches) {
+		this.allCoaches = allCoaches;
+	}
+
+	public List<Long> getSelectedPlayerIds() {
+		return selectedPlayerIds;
+	}
+
+	public void setSelectedPlayerIds(List<Long> selectedPlayerIds) {
+		this.selectedPlayerIds = selectedPlayerIds;
 	}
 }
