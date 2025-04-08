@@ -11,13 +11,12 @@
   </h:head>
   <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
-    
-    	<h:form>
-    	<h:commandLink action="searchTeams">
-        	<h:outputLabel value="Go back"></h:outputLabel>
+      <h:form>
+        <h:commandLink action="searchTeams">
+          <h:outputLabel value="Go back"></h:outputLabel>
         </h:commandLink>
-        </h:form>
-    
+      </h:form>
+
       <!-- Team Details Section -->
       <h:outputText value="Team Details:" style="font-weight: bold" />
       <br />
@@ -51,7 +50,8 @@
           styleClass="ma-table"
         >
           <h:column>
-           <h:outputText value="#{player.firstname} #{player.lastname}"/> <!--  (#{player.age} years old,
+            <h:outputText value="#{player.firstname} #{player.lastname}" />
+            <!--  (#{player.age} years old,
             Injured: #{player.injured ? 'Yes' : 'No'})	 -->
           </h:column>
         </h:dataTable>
