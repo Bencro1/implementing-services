@@ -63,6 +63,7 @@ public void test() throws SQLException, ClassNotFoundException {
 
             team2.addTournament(t1);
             team2.addTournament(t2);
+            
 
             // Création des joueurs
             Player p1 = new Player("Lee", "Sang-hyeok", "South-Korea", 28, false);
@@ -74,6 +75,26 @@ public void test() throws SQLException, ClassNotFoundException {
 
             // Création d'un coach
             Coach c1 = new Coach("Kim", "Jeong-gyun", "South-Korea", 15);
+            
+            team1.setCoach(c1);
+            
+            em.persist(p1);
+            em.persist(p2);
+            em.persist(p3);
+            em.persist(p4);
+            em.persist(p5);
+            em.persist(p6);
+            em.flush();
+            System.out.println("Persisted players.");
+            
+            List<Player> players = new ArrayList<>();
+            players.add(p1);
+            players.add(p2);
+            
+            for (Player player : players) {
+                player.setTeam(team1);
+            }
+            team1.setPlayerList(players);
 
             // Persistance des entités
             em.persist(team1);
@@ -89,14 +110,6 @@ public void test() throws SQLException, ClassNotFoundException {
             em.persist(g1);
             em.persist(g2);
             System.out.println("Persisted games with IDs: " + g1.getIdNumber() + ", " + g2.getIdNumber());
-
-            em.persist(p1);
-            em.persist(p2);
-            em.persist(p3);
-            em.persist(p4);
-            em.persist(p5);
-            em.persist(p6);
-            System.out.println("Persisted players.");
 
             em.persist(c1);
             System.out.println("Persisted coach with ID: " + c1.getIdNumber());

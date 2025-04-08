@@ -32,7 +32,7 @@ public class EsportTeam {
 
     // Relations
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Player> playerList = new ArrayList<>();    
+    private List<Player> playerList = new ArrayList<>();
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     @JoinColumn(name = "coach_id", unique = true)

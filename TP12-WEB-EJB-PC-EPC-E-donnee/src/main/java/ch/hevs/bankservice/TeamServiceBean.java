@@ -37,37 +37,21 @@ public class TeamServiceBean implements TeamService {
 	
 	@Override
 	public void addTeam(String newTeamName, String newSponsor, double newSalary, Long newBankId, Long selectedCoachId, List<Long> selectedPlayerIds) {
-	/*	// Vérifiez si une équipe avec le même nom et sponsor existe déjà
-		List<EsportTeam> existingTeams = em.createQuery(
-				"SELECT t FROM EsportTeam t WHERE t.teamName = :teamName AND t.sponsor = :sponsor", EsportTeam.class)
-				.setParameter("teamName", newTeamName)
-				.setParameter("sponsor", newSponsor)
-				.getResultList();
-	
-		if (!existingTeams.isEmpty()) {
-			// Si une équipe existe déjà, ne rien faire ou lever une exception
-			System.out.println("Team already exists: " + newTeamName);
-			return;
-		}
-	
-		// Sinon, créez une nouvelle équipe
-		EsportTeam team = new EsportTeam();
-		team.setTeamName(newTeamName);
-		team.setSponsor(newSponsor);
-		team.setSalary(newSalary);
-		team.setBankId(newBankId);	*/
-		
 		EsportTeam team = new EsportTeam();
 		team.setTeamName(newTeamName);
 		team.setSponsor(newSponsor);
 		team.setSalary(newSalary);
 		team.setBankId(newBankId);
-		
+	
+		// Ajout du coach
 		Coach selected = em.find(Coach.class, selectedCoachId);
 		team.setCoach(selected);
-		
+	
+		// Ajout des joueurs
 		List<Player> managedPlayers = getPlayersById(selectedPlayerIds);
-		
+		for (Player player : managedPlayers) {
+			player.setTeam(team); // Met à jour la relation inverse
+		}
 		team.setPlayerList(managedPlayers);
 	
 		em.persist(team);
@@ -77,7 +61,7 @@ public class TeamServiceBean implements TeamService {
 		List<Player> players = new ArrayList<>();
 		for (Long playerId : playerIds) {
 			Player player = em.find(Player.class, playerId);
-			if(player != null) {
+			if (player != null) {
 				players.add(player);
 			}
 		}
