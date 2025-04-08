@@ -38,7 +38,7 @@
       <br />
 
       <!-- Form for adding a new game -->
-      <h:form>
+      <h:form rendered="#{request.isUserInRole('organizer')}">
         <h:panelGrid columns="2">
           <h:outputText value="Game name:" />
           <h:inputText value="#{GameDetailsBean.newGameName}" />
