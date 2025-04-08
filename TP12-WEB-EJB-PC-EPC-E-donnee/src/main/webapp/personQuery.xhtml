@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+>
+  <h:head>
+    <title>Search Tournaments</title>
+    <h:outputStylesheet name="style.css" library="css" />
+  </h:head>
+  <h:body>
+    <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+      <ui:define name="content">
+        <!-- Section for displaying messages -->
+        <h:messages globalOnly="true" style="color: red"/>
+        
+        <h:form>
+        <h:commandLink action="welcomeTournament">
+        	<h:outputLabel value="Go back"></h:outputLabel>
+        </h:commandLink>
+        </h:form>
+        
+        <!-- Search form -->
+        <h:form>
+        <h:panelGrid columns="2">
+            <h:outputText value="Write Person firstname:" />
+            <h:inputText value="#{PersonBean.personName}" />
+          </h:panelGrid>
+
+          <h:commandButton
+            value="Search"
+            action="#{PersonBean.searchPerson}"
+          />
+          <h:commandButton
+            value="Reset"
+            action="#{PersonBean.resetSearch}"
+          />
+        </h:form>
+        
+        <!-- Form to add a player -->
+        <h:form rendered="#{request.isUserInRole('organizer')}">
+          <h:panelGrid columns="2">
+            <h:outputText value="Player Firstname:" />
+            <h:inputText value="#{PersonBean.playerFirstname}" />
+
+            <h:outputText value="Player Lastname:" />
+            <h:inputText value="#{PersonBean.playerLastname}" />
+
+            <h:outputText value="Nationality:" />
+            <h:inputText value="#{PersonBean.playerNationality}" />
+
+            <h:outputText value="Age:" />
+            <h:inputText value="#{PersonBean.playerAge}" />
+
+            <h:outputText value="Injured:" />
+            <h:selectBooleanCheckbox value="#{PersonBean.playerInjured}" />
+          </h:panelGrid>
+          <h:commandButton
+            value="Add Player"
+            action="#{PersonBean.createPlayer}"
+          />
+        </h:form>
+        
+        <!-- Form to add a coach -->
+        <h:form rendered="#{request.isUserInRole('organizer')}">
+          <h:panelGrid columns="2">
+            <h:outputText value="Coach Firstname:" />
+            <h:inputText value="#{PersonBean.coachFirstname}" />
+
+            <h:outputText value="Coach Lastname:" />
+            <h:inputText value="#{PersonBean.coachLastname}" />
+
+            <h:outputText value="Nationality:" />
+            <h:inputText value="#{PersonBean.coachNationality}" />
+
+            <h:outputText value="Years of Experience:" />
+            <h:inputText value="#{PersonBean.coachExperience}" />
+          </h:panelGrid>
+          <h:commandButton
+            value="Add Coach"
+            action="#{PersonBean.createCoach}"
+          />
+        </h:form>
+        
+        <!-- Table displaying player details -->
+        <br/>
+        <h:outputText value="All Players:" style="font-weight: bold" />
+        <h:dataTable
+        			value="#{PersonBean.playerDetails}"
+        			var="player"
+        			styleClass="ma-table">
+        <h:column>
+            <f:facet name="header">Firstname</f:facet>
+            #{player[1]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Lastname</f:facet>
+            #{player[2]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nationality</f:facet>
+            #{player[3]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Age</f:facet>
+            #{player[4]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Injured</f:facet>
+            #{player[5] ? "Yes" : "No"}
+          </h:column>
+        </h:dataTable>
+        
+        <!-- Table displaying existing coaches -->
+        <br/>
+        <h:outputText value="Existing Coaches:" style="font-weight: bold" />
+        <h:dataTable
+          value="#{PersonBean.coachDetails}"
+          var="coach"
+          styleClass="ma-table"
+        >
+          <h:column>
+            <f:facet name="header">Firstname</f:facet>
+            #{coach[1]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Lastname</f:facet>
+            #{coach[2]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nationality</f:facet>
+            #{coach[3]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Experience (Years)</f:facet>
+            #{coach[4]}
+          </h:column>
+        </h:dataTable>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

@@ -11,18 +11,20 @@
       <br />
       <h:form>
         <h:commandLink action="searchQuery">
-          <h:outputLabel value="Search for tournaments"></h:outputLabel>
+          <h:outputLabel value="Search for tournaments"/>
         </h:commandLink>
         <br />
         <h:commandLink action="searchTeams">
-          <h:outputLabel value="Search for teams"></h:outputLabel>
+          <h:outputLabel value="Search for teams"/>
         </h:commandLink>
-      </h:form>
-      <br />
-      <h:form>
+        <br></br>
         <h:commandLink action="gameQuery">
           <h:outputLabel value="Manage Games" />
-        </h:commandLink>
+         </h:commandLink>
+         <br/>
+         <h:commandLink action="/personQuery.xhtml">
+         	<h:outputLabel value="Manage persons"/>
+         </h:commandLink>
       </h:form>
     </ui:define>
   </ui:composition>

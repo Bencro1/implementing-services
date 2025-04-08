@@ -13,7 +13,7 @@ public interface TeamService {
 	List<Player> getAllPlayers();
 	List<Coach> getAllCoaches();
 	List<Object[]> findTeamByName(String TeamName);
-	void addTeam(String newTeamName, String newSponsor, double newSalary, long newBankId);
+	void addTeam(String newTeamName, String newSponsor, double newSalary, Long newBankId, Long selectedCoachId, List<Long> selectedPlayerIds);
 	void addPlayer(Player player);
 	void addCoach(Coach coach);
 	void updatePlayer(Player player);
