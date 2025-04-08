@@ -16,12 +16,12 @@
         <!-- Section for displaying messages -->
         <h:messages globalOnly="true" style="color: red" />
 
-		<h:form>
-		<h:commandLink action="welcomeTournament">
-        	<h:outputLabel value="Go back"></h:outputLabel>
-        </h:commandLink>
+        <h:form>
+          <h:commandLink action="welcomeTournament">
+            <h:outputLabel value="Go back"></h:outputLabel>
+          </h:commandLink>
         </h:form>
-		
+
         <!-- Search form -->
         <h:form>
           <h:panelGrid columns="2">
@@ -51,17 +51,25 @@
 
             <h:outputText value="Bank ID:"></h:outputText>
             <h:inputText value="#{EsportTeamBean.newBankId}"></h:inputText>
-            
-            <h:outputText value="Coach:"/>
+
+            <h:outputText value="Select Coach:" />
             <h:selectOneMenu value="#{EsportTeamBean.selectedCoachId}">
-            	<f:selectItems value="#{EsportTeamBean.allCoaches}" var="coach"
-            					itemValue="#{coach.idNumber}" itemLabel="#{coach.firstname}"/>
+              <f:selectItems
+                value="#{EsportTeamBean.allCoaches}"
+                var="coach"
+                itemValue="#{coach.idNumber}"
+                itemLabel="#{coach.firstname} #{coach.lastname}"
+              />
             </h:selectOneMenu>
-            
-            <h:outputText value="Select Players:"/>
+
+            <h:outputText value="Select Players:" />
             <h:selectManyCheckbox value="#{EsportTeamBean.selectedPlayerIds}">
-            	<f:selectItems value="#{EsportTeamBean.allPlayers}" var="player"
-            					itemValue="#{player.idNumber}" itemLabel="#{player.firstname}"/>
+              <f:selectItems
+                value="#{EsportTeamBean.allPlayers}"
+                var="player"
+                itemValue="#{player.idNumber}"
+                itemLabel="#{player.firstname} #{player.lastname}"
+              />
             </h:selectManyCheckbox>
           </h:panelGrid>
           <h:commandButton
@@ -88,7 +96,6 @@
             #{team[2]}
           </h:column>
         </h:dataTable>
-
       </ui:define>
     </ui:composition>
   </h:body>

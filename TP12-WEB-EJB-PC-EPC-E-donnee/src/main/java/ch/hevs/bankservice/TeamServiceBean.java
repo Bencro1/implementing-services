@@ -70,12 +70,12 @@ public class TeamServiceBean implements TeamService {
 
 	@Override
 	public List<Player> getAllPlayers() {
-		return em.createQuery("SELECT p FROM Player p", Player.class).getResultList();
+		return em.createQuery("SELECT p FROM Player p WHERE p.team IS NULL", Player.class).getResultList();
 	}
-
+	
 	@Override
 	public List<Coach> getAllCoaches() {
-		return em.createQuery("SELECT DISTINCT c FROM Coach c", Coach.class).getResultList();
+		return em.createQuery("SELECT c FROM Coach c WHERE c.team IS NULL", Coach.class).getResultList();
 	}
 
 	@Override

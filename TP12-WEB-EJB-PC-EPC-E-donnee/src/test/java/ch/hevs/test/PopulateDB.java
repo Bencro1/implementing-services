@@ -65,36 +65,63 @@ public void test() throws SQLException, ClassNotFoundException {
             team2.addTournament(t2);
             
 
-            // Création des joueurs
-            Player p1 = new Player("Lee", "Sang-hyeok", "South-Korea", 28, false);
-            Player p2 = new Player("Moon", "Hyeon-jun", "South-Korea", 22, false);
-            Player p3 = new Player("Lee", "Min-hyeong", "South-Korea", 23, false);
-            Player p4 = new Player("Choi", "Woo-je", "South-Korea", 21, true);
-            Player p5 = new Player("Ryu", "Min-seok", "South-Korea", 22, false);
-            Player p6 = new Player("Choi", "Hyoeon-joon", "South-Korea", 24, false);
 
-            // Création d'un coach
-            Coach c1 = new Coach("Kim", "Jeong-gyun", "South-Korea", 15);
-            
-            team1.setCoach(c1);
-            
-            em.persist(p1);
-            em.persist(p2);
-            em.persist(p3);
-            em.persist(p4);
-            em.persist(p5);
-            em.persist(p6);
+           // Création des joueurs pour Team 1
+            Player p1 = new Player("John", "Smith", "USA", 28, false);
+            Player p2 = new Player("Lucas", "Miller", "Canada", 22, false);
+            Player p3 = new Player("Ethan", "Brown", "UK", 23, false);
+            Player p4 = new Player("Noah", "Wilson", "Australia", 21, true);
+            Player p5 = new Player("Liam", "Taylor", "New Zealand", 22, false);
+
+            // Création des joueurs pour Team 2
+            Player p6 = new Player("Emma", "Anderson", "USA", 24, false);
+            Player p7 = new Player("Olivia", "Thomas", "Canada", 25, false);
+            Player p8 = new Player("Sophia", "Jackson", "UK", 26, false);
+            Player p9 = new Player("Isabella", "White", "Australia", 27, false);
+            Player p10 = new Player("Mia", "Harris", "New Zealand", 23, false);
+
+            // Création des joueurs non assignés
+            Player p11 = new Player("James", "Martin", "USA", 20, false);
+            Player p12 = new Player("Benjamin", "Lee", "Canada", 21, false);
+            Player p13 = new Player("Alexander", "Walker", "UK", 22, false);
+            Player p14 = new Player("Charlotte", "Hall", "Australia", 23, false);
+            Player p15 = new Player("Amelia", "Young", "New Zealand", 24, false);
+
+            // Création des coachs
+            Coach c1 = new Coach("Michael", "Scott", "USA", 15); // Coach pour Team 1
+            Coach c2 = new Coach("David", "Clark", "Canada", 10); // Coach pour Team 2
+            Coach c3 = new Coach("Sarah", "Lewis", "UK", 8);     // Coach non assigné
+
+            // Persistance des joueurs et coachs
+            em.persist(p1); em.persist(p2); em.persist(p3); em.persist(p4); em.persist(p5);
+            em.persist(p6); em.persist(p7); em.persist(p8); em.persist(p9); em.persist(p10);
+            em.persist(p11); em.persist(p12); em.persist(p13); em.persist(p14); em.persist(p15);
+            em.persist(c1); em.persist(c2); em.persist(c3);
             em.flush();
-            System.out.println("Persisted players.");
-            
-            List<Player> players = new ArrayList<>();
-            players.add(p1);
-            players.add(p2);
-            
-            for (Player player : players) {
+            System.out.println("Persisted players and coaches.");
+
+            // Assignation des joueurs et coachs aux équipes
+            List<Player> team1Players = List.of(p1, p2, p3, p4, p5);
+            List<Player> team2Players = List.of(p6, p7, p8, p9, p10);
+
+            for (Player player : team1Players) {
                 player.setTeam(team1);
             }
-            team1.setPlayerList(players);
+            for (Player player : team2Players) {
+                player.setTeam(team2);
+            }
+
+            team1.setPlayerList(team1Players);
+            team2.setPlayerList(team2Players);
+
+            team1.setCoach(c1);
+            team2.setCoach(c2);
+
+            // Persistance des équipes
+            em.persist(team1);
+            em.persist(team2);
+            em.flush();
+            System.out.println("Persisted teams with players and coaches.");
 
             // Persistance des entités
             em.persist(team1);
